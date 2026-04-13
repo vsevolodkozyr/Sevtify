@@ -1,5 +1,10 @@
+import MainLayout from '@/components/templates/MainLayout';
 function App() {
-  return <div>App</div>;
+  return (
+    <MainLayout>
+      OHHHHHHHHHHHHH YEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSS
+    </MainLayout>
+  );
 }
 
 export default App;

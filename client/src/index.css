@@ -1,2 +1,69 @@
+@import url('./styles/font.css');
 @import 'tailwindcss';
 @tailwind utilities;
+
+@theme {
+  --font-figtree: 'Figtree', sans-serif;
+}
+
+html,
+body,
+:root,
+#root {
+  font-family: 'Figtree', sans-serif;
+  height: 100%;
+  background-color: #000;
+  color-scheme: dark;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+html {
+}
+
+.main_layout {
+  grid-template:
+    'header header header' auto
+    'main main main' 1fr
+    'footer footer footer' auto
+    / 1fr;
+  column-gap: 10px;
+}
+@media (width >= 48rem) {
+  .main_layout {
+    grid-template:
+      'header header header' auto
+      'sidebar main main' 1fr
+      'footer footer footer' auto
+      / var(--left-sidebar-width) 1fr;
+  }
+}
+
+@media (width >= 64rem) {
+  .main_layout {
+    grid-template:
+      'header header header' auto
+      'sidebar main now_playing' 1fr
+      'footer footer footer' auto
+      / var(--left-sidebar-width) 1fr var(--now-playing-width);
+  }
+}
+
+.hidden-visually {
+  clip: rect(0 0 0 0);
+  border: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
