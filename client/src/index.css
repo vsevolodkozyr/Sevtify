@@ -4,6 +4,8 @@
 
 @theme {
   --font-figtree: 'Figtree', sans-serif;
+
+  --color-icon: #ffffffb3
 }
 
 html,

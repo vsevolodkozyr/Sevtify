@@ -20,7 +20,7 @@ const useResize = ({
   const isResizing = React.useRef(false);
   const [isColapsed, setIsColapsed] = React.useState(() => {
     if (colapseWidth && initial < colapseWidth) return true;
-    return colapsed ?? false;
+    return colapsed || false;
   });
   const [value, setValue] = React.useState(() => {
     if (colapseWidth && initial < colapseWidth) return min;
@@ -38,20 +38,18 @@ const useResize = ({
       setShadowValue(clamped);
 
       if (colapseWidth) {
-        if (width < colapseWidth && !isColapsed) {
+        if (width < colapseWidth) {
           setValue(min);
           setIsColapsed(true);
         } else {
           setValue(width);
-          if (isColapsed) {
-            setIsColapsed(false);
-          }
+          setIsColapsed(false);
         }
       } else {
         setValue(width);
       }
     },
-    [colapseWidth, min, max, isColapsed],
+    [colapseWidth, min, max],
   );
 
   useEffect(() => {

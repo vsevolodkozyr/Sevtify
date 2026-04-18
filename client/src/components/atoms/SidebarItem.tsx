@@ -8,19 +8,21 @@ interface Props {
   label: string;
   href: string;
   active?: boolean;
+  isColapsed?: boolean;
 }
 
-const SidebarItem = ({ icon: Icon, label, href, active }: Props) => {
+const SidebarItem = ({ icon: Icon, label, href, active, isColapsed = false }: Props) => {
   return (
     <Link
       to={href}
       className={cn(
         'text-gray-300 flex flex-row gap-5 items-center',
         active && 'text-white',
+        isColapsed && 'justify-center w-full',
       )}
     >
       <Icon className="text-[28px]" />
-      <p className="truncate text-[18px]">{label}</p>
+      <p className={cn('truncate text-[18px]', isColapsed && 'hidden')}>{label}</p>
     </Link>
   );
 };
