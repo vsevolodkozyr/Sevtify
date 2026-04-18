@@ -1,0 +1,24 @@
+import React from 'react';
+import Sidebar from '../organisms/Sidebar';
+import NowPlaying from '../organisms/NowPlaying';
+import Header from '../organisms/Header';
+import Footer from '../organisms/Footer';
+import Main from '../organisms/Main';
+
+interface MainLayoutProps {
+  children?: React.ReactNode;
+}
+
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  return (
+    <div className="main_layout  grid  h-screen w-full px-[10px]">
+      <Header />
+      <Sidebar />
+      <Main>{children}</Main>
+      <NowPlaying />
+      <Footer />
+    </div>
+  );
+};
+
+export default MainLayout;

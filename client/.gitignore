@@ -1,3 +1,6 @@
+# Mock
+src/data/*
+
 # Logs
 logs
 *.log
