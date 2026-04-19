@@ -12,6 +12,7 @@ import {
 import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/lib/utils';
 import useUploadModal from '@/store/useUploadModal';
+import { Button } from '../atoms/Button';
 
 const Sidebar = () => {
   const { onOpen } = useUploadModal();
@@ -109,13 +110,14 @@ const Sidebar = () => {
                 isColapsed && 'hidden',
               )}
             >
-              <div className="flex gap-2 items-center ">
-                {/* button */}
-                <TbLayoutSidebarLeftCollapse
-                  className={cn(
-                    'text-[24px] text-icon -translate-x-full opacity-0 group-hover/sidebar:opacity-100 group-hover/sidebar:translate-x-0 transition-[transform_opacity] duration-300 ease-in-out',
-                  )}
-                />
+              <div className="flex gap-2 items-center">
+                <Button variant={'icon'} size={'icon'}>
+                  <TbLayoutSidebarLeftCollapse
+                    className={cn(
+                      'text-[24px] text-icon -translate-x-full opacity-0 group-hover/sidebar:opacity-100 group-hover/sidebar:translate-x-0 transition-[transform_opacity] duration-300 ease-in-out',
+                    )}
+                  />
+                </Button>
                 <span
                   className={cn(
                     'text-[20px] -translate-x-6 group-hover/sidebar:translate-x-0 transition-all duration-300 ease-in-out',
@@ -124,8 +126,10 @@ const Sidebar = () => {
                   My library
                 </span>
               </div>
-              {/* button */}
-              <button
+
+              <Button
+                variant={'icon'}
+                size={'icon'}
                 onClick={onOpen}
                 className={cn(
                   'p-2 bg-neutral-400/20 rounded-full flex items-center gap-1 @min-[315px]:p-[8px_16px]',
@@ -133,7 +137,7 @@ const Sidebar = () => {
               >
                 <FiPlus className="text-[20px] text-icon" />
                 <span className="hidden @min-[315px]:block">Create</span>
-              </button>
+              </Button>
             </div>
           </div>
 

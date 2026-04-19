@@ -12,7 +12,6 @@ type Props = {
 const Modal = ({ isOpen, onChange, title, description, children }: Props) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
-      {/* <Dialog.Trigger /> */}
       <Dialog.Portal>
         <Dialog.Overlay className="bg-neutral-900/30 fixed inset-0 backdrop-blur-[5px]" />
         <Dialog.Content
