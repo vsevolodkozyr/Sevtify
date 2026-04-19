@@ -5,7 +5,18 @@
 @theme {
   --font-figtree: 'Figtree', sans-serif;
 
-  --color-icon: #ffffffb3
+  --color-icon: #ffffffb3;
+  --color-modal: oklch(40% 0 0 / 0.3);
+}
+
+@utility hit-area-* {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: calc(--value([length]) * -1);
+  }
 }
 
 html,

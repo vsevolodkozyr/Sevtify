@@ -11,8 +11,11 @@ import {
 } from 'react-icons/tb';
 import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/lib/utils';
+import useUploadModal from '@/store/useUploadModal';
 
 const Sidebar = () => {
+  const { onOpen } = useUploadModal();
+
   const {
     startResize: startSidebarResize,
     min: sidebarMin,
@@ -123,6 +126,7 @@ const Sidebar = () => {
               </div>
               {/* button */}
               <button
+                onClick={onOpen}
                 className={cn(
                   'p-2 bg-neutral-400/20 rounded-full flex items-center gap-1 @min-[315px]:p-[8px_16px]',
                 )}
@@ -132,7 +136,7 @@ const Sidebar = () => {
               </button>
             </div>
           </div>
-          
+
           <div>My library List</div>
         </Box>
       </div>
