@@ -3,7 +3,6 @@ import * as tracksService from '../services/tracksService';
 import { trackKeys } from '@/services/queryKeys';
 
 export const useTracks = () => {
-
   return useQuery({
     queryKey: trackKeys.all,
     queryFn: () => tracksService.getAllTracks(),
