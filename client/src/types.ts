@@ -16,9 +16,10 @@ export interface Playlist {
   created_at: string;
 }
 
-export interface Song {
+export interface Track {
   id: number;
-  name: string;
-  author: string[];
-  path: string;
+  author: string;
+  title: string;
+  track_path: string;
+  image_path: string;
 }

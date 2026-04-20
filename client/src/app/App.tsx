@@ -1,9 +1,17 @@
+import { Button } from '@/components/atoms/Button';
 import MainLayout from '@/components/templates/MainLayout';
+import ModalProvider from '@/providers/ModalProvider';
+import ToasterProvider from '@/providers/ToasterProvider';
 function App() {
   return (
-    <MainLayout>
-      OHHHHHHHHHHHHH YEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSS
-    </MainLayout>
+    <>
+      <ToasterProvider />
+      <ModalProvider />
+      <MainLayout>
+        OHHHHHHHHHHHHH YEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSS
+        <Button>Click Me!</Button>
+      </MainLayout>
+    </>
   );
 }
 

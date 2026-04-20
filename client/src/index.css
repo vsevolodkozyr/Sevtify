@@ -5,7 +5,28 @@
 @theme {
   --font-figtree: 'Figtree', sans-serif;
 
-  --color-icon: #ffffffb3
+  --color-icon: #ffffffb3;
+  --color-modal: oklch(40% 0 0 / 0.3);
+  --color-primary: #1ed760;
+  --color-primary-darker: #19b851;
+  --color-primary-foreground: #121212;
+}
+
+@utility hit-area-* {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: calc(--value([length]) * -1);
+  }
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 html,
