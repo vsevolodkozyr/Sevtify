@@ -8,8 +8,8 @@
   --color-icon: #ffffffb3;
   --color-modal: oklch(40% 0 0 / 0.3);
   --color-primary: #1ed760;
-  --color-primary-darker: #19B851;
-  --color-primary-foreground: #fff;
+  --color-primary-darker: #19b851;
+  --color-primary-foreground: #121212;
 }
 
 @utility hit-area-* {

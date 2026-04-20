@@ -1,6 +1,12 @@
 # Mock
 src/data/*
 
+# Local variables
+.env
+.env.*
+.env.local
+.env.*.local
+
 # Logs
 logs
 *.log

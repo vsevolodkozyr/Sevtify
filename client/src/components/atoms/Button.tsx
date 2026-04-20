@@ -7,11 +7,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary-darker',
+        default: 'bg-primary text-primary-foreground hover:bg-primary-darker font-bold',
         icon: 'bg-transparent',
       },
       size: {
-        default: 'gap-1.5 px-4 py-1 rounded-full',
+        default: 'gap-1.5 px-6 py-1 rounded-full',
         icon: 'rounded-full',
       },
     },
