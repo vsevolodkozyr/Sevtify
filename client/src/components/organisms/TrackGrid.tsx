@@ -1,9 +1,8 @@
 import type { Track } from '@/types';
+import TrackCard from '../atoms/TrackCard';
 interface Props {
   tracks: Track[];
 }
-
-const mock = Array(100).fill(1);
 
 const TrackGrid = ({ tracks }: Props) => {
   if (!tracks.length) {
@@ -21,14 +20,8 @@ const TrackGrid = ({ tracks }: Props) => {
       @min-[1200px]:grid-cols-5
      "
       >
-        {mock.map((item, index) => {
-          return (
-            <div key={`${item}_${index}`} className=" bg-primary">
-              <div className="w-full aspect-square bg-red-400"></div>
-              <p>title</p>
-              <p>desc</p>
-            </div>
-          );
+        {tracks.map((track) => {
+          return <TrackCard key={`${track.id}`} data={track} />;
         })}
       </div>
     </div>

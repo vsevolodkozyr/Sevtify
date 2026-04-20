@@ -7,7 +7,12 @@ const HomePage = () => {
 
   return (
     <MainLayout>
-      {isFetching ? <div>Fetching</div> : <TrackGrid tracks={data} />}
+      <div className="@container p-6 size-full">
+        <h1 className="text-[clamp(30px,6cqw,46px)] mb-4 font-bold">
+          Welcome back, we missed you
+        </h1>
+        {isFetching ? <div>Fetching</div> : <TrackGrid tracks={data} />}
+      </div>
     </MainLayout>
   );
 };

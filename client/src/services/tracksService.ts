@@ -6,7 +6,7 @@ const DEVELOPMENT = import.meta.env.DEVELOPMENT || true;
 
 export const getAllTracks = async (params = {}) => {
   if (DEVELOPMENT) {
-    return tracks;
+    return mockPromise(() => tracks);
   }
   const { data } = await api.get<Track[]>('/tracks', { params });
   return data;
