@@ -14,7 +14,7 @@ export const getAllTracks = async (params = {}) => {
 
 export const addTrack = async (formData: FormData): Promise<Track> => {
   if (DEVELOPMENT) {
-    return mockPromise(() => insertTrack(formData));
+    return mockPromise(async () => await insertTrack(formData));
   }
   const { data } = await api.post('/tracks', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },

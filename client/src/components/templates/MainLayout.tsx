@@ -11,7 +11,7 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="main_layout  grid  h-screen w-full px-[10px]">
+    <div className="main_layout grid h-screen max-h-screen w-full px-[10px] overflow-hidden">
       <Header />
       <Sidebar />
       <Main>{children}</Main>

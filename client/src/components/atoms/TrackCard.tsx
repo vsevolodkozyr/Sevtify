@@ -1,6 +1,6 @@
 import type { Track } from '@/types';
 import { Button } from './Button';
-import { IoMdPlay } from 'react-icons/io';
+import { FaPlay } from 'react-icons/fa';
 
 type Props = {
   data: Track;
@@ -18,15 +18,18 @@ const TrackCard = ({ data }: Props) => {
             rounded-[8px]
             object-cover
             `}
-          src={image_path}
+          src={image_path || '/'}
+          onError={(e) => {
+            e.target.attributes.src.value = '/fallback/track.jfif';
+          }}
           alt={`Track ${title} - ${author}`}
         />
         <Button
           variant={'icon'}
           size={'icon'}
-          className="absolute bottom-1 right-1  text-[13cqw] text-black bg-primary p-2 translate-y-1/2 opacity-0 group-hover:translate-0 group-hover:opacity-100"
+          className="absolute bottom-1 right-1  text-[7cqw] text-black bg-primary p-3 translate-y-1/2 opacity-0 group-hover:translate-0 group-hover:opacity-100"
         >
-          <IoMdPlay className="" />
+          <FaPlay />
         </Button>
       </div>
       <div className="flex flex-col gap-0.5">
