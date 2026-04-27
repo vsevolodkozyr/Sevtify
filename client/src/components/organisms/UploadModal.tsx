@@ -12,8 +12,6 @@ const UploadModel = () => {
   const { register, handleSubmit, reset } = useForm<FieldValues>();
 
   const { isPending, mutateAsync: uploadTrack } = useCreateTrack();
-  // const { data } = useTracks();
-  // console.log(JSON.stringify(data));
 
   const onChange = (open: boolean) => {
     if (!open) {
@@ -30,8 +28,10 @@ const UploadModel = () => {
       formData.append('image_path', values.image[0]);
       formData.append('track_path', values.track[0]);
       const result = await uploadTrack(formData);
-      console.log(result);
-      toast.success(`Track ${result.author} - ${result.title} added`);
+      toast.success(
+        `Track ${result.author} - ${result.title} - ${result.duration} added`,
+      );
+      onClose();
     } catch {
       toast.error('Something went wrong!');
     }

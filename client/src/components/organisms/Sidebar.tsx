@@ -13,6 +13,7 @@ import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/lib/utils';
 import useUploadModal from '@/store/useUploadModal';
 import { Button } from '../atoms/Button';
+import PlaylistsColumn from './PlaylistsColumn';
 
 const Sidebar = () => {
   const { onOpen } = useUploadModal();
@@ -59,7 +60,7 @@ const Sidebar = () => {
   }, [location]);
 
   return (
-    <div className="group/sidebar relative  [grid-area:sidebar] hidden md:block  ">
+    <div className="group/sidebar relative [grid-area:sidebar] hidden md:block min-h-0 max-h-full h-full">
       <button
         className={
           'absolute flex items-center justify-center left-full top-0 h-full w-[10px] bg-transparent cursor-grabbing focus-within:outline-2 focus-within:outline-white hover:bg-neutral-500/25 active:bg-neutral-500/25'
@@ -81,8 +82,8 @@ const Sidebar = () => {
           />
         </label>
       </button>
-      <div className="flex flex-col gap-[10px] h-full">
-        <Box>
+      <div className="flex flex-col h-full">
+        <Box className=" mb-2.5">
           <div className="flex flex-col gap-4 px-5 py-4 shrink-0">
             {routes.map((route) => (
               <SidebarItem
@@ -93,8 +94,8 @@ const Sidebar = () => {
             ))}
           </div>
         </Box>
-        <Box className="grow">
-          <div className="flex items-center p-[16px_16px_8px]">
+        <Box className="flex flex-col overflow-hidden h-full">
+          <div className="flex items-center p-[16px_16px_8px] ">
             <div className="flex justify-center items-center grow-1">
               {/* button */}
               <TbLayoutSidebarLeftExpand
@@ -141,7 +142,16 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <div>My library List</div>
+          <div
+            className="grow w-full overflow-y-auto overflow-x-hidden
+          [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]
+  [&::-webkit-scrollbar]:w-1
+  [&::-webkit-scrollbar-track]:bg-transparent
+  [&::-webkit-scrollbar-thumb]:bg-white/20
+  [&::-webkit-scrollbar-thumb]:rounded-full"
+          >
+            <PlaylistsColumn />
+          </div>
         </Box>
       </div>
     </div>

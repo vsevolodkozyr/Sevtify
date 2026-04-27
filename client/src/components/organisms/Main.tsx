@@ -6,8 +6,8 @@ interface MainProps {
 
 const Main = ({ children }: MainProps) => {
   return (
-    <main className="[grid-area:main] w-full h-full">
-      <Box className="size-full bg-linear-to-b to-20% from-green-400/40 to-transparent">
+    <main className="[grid-area:main] w-full h-full overflow-y-auto overflow-x-hidden">
+      <Box className="min-h-full bg-linear-to-b to-20% from-green-400/40 to-transparent">
         {children}
       </Box>
     </main>

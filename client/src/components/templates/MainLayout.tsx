@@ -4,17 +4,19 @@ import NowPlaying from '../organisms/NowPlaying';
 import Header from '../organisms/Header';
 import Footer from '../organisms/Footer';
 import Main from '../organisms/Main';
-
+import { Outlet } from 'react-router';
 interface MainLayoutProps {
   children?: React.ReactNode;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = () => {
   return (
-    <div className="main_layout  grid  h-screen w-full px-[10px]">
+    <div className="main_layout grid h-screen max-h-screen w-full px-[10px] overflow-hidden">
       <Header />
       <Sidebar />
-      <Main>{children}</Main>
+      <Main>
+        <Outlet />
+      </Main>
       <NowPlaying />
       <Footer />
     </div>
