@@ -3,7 +3,6 @@ import PlaylistCard from '../atoms/PlaylistCard';
 
 const PlaylistsColumn = () => {
   const { data } = usePlaylists();
-  console.log(data);
 
   if (!data) {
     return <h1>No playlists</h1>;

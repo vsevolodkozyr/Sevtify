@@ -26,6 +26,10 @@ export interface Track {
   created_at: string;
 }
 
-type PlaylistDetail = Omit<Playlist, 'trackIds'> & {
+export type PlaylistDetail = {
+  id: number;
+  title: string;
+  image_path: string;
+  created_at: string;
   tracks: Track[];
 };

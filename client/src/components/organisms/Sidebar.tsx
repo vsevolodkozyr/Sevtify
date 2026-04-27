@@ -142,7 +142,14 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <div className="grow  w-full overflow-y-auto overflow-x-hidden">
+          <div
+            className="grow w-full overflow-y-auto overflow-x-hidden
+          [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]
+  [&::-webkit-scrollbar]:w-1
+  [&::-webkit-scrollbar-track]:bg-transparent
+  [&::-webkit-scrollbar-thumb]:bg-white/20
+  [&::-webkit-scrollbar-thumb]:rounded-full"
+          >
             <PlaylistsColumn />
           </div>
         </Box>

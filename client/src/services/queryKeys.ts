@@ -4,4 +4,5 @@ export const trackKeys = {
 
 export const playlistKeys = {
   all: ['playlists'],
+  detail: (id: number) => ['playlists', id],
 };

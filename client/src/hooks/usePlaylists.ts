@@ -8,3 +8,9 @@ export const usePlaylists = () => {
     queryFn: () => playlistService.getAllPlaylists(),
   });
 };
+export const usePlaylist = ({ id }: { id: number }) => {
+  return useQuery({
+    queryKey: playlistKeys.detail(id),
+    queryFn: () => playlistService.getPlaylist(),
+  });
+};
