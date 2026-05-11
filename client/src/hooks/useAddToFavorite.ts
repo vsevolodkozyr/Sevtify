@@ -9,13 +9,11 @@ import { useTrackPlaylists } from './useTracks';
 type Props = { trackId: number; playlistId?: number };
 
 const useAddToFavorite = ({ trackId, playlistId }: Props) => {
-  
   // console.log(trackId, playlistId);
-  
-  
+
   const { trackPlaylists } = useTrackPlaylists(trackId);
   // console.log(trackPlaylists);
-  
+
   const { data: currentPlaylist } = usePlaylist({ id: playlistId ?? 0 });
   const { toggle } = useAddTrackToPlaylistPopover();
   const { mutateAsync: addToPlaylist } = useAddToPlaylist();
@@ -25,13 +23,12 @@ const useAddToFavorite = ({ trackId, playlistId }: Props) => {
     ? currentPlaylist?.tracks.some((track) => track.id === trackId)
     : false;
   const isActive = playlistId ? isInCurrentPlaylist : isInAnyPlaylist;
-  const handleClick = async () => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (playlistId) {
       // ── Режим плейлиста ──────────────────────────────
 
       if (isInCurrentPlaylist) {
-        console.log('REMOVE FROM', playlistId, trackId);
-
         await removeFromPlaylist({ trackId, playlistId });
         console.log(trackPlaylists);
       } else {

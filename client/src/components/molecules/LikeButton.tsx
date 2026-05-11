@@ -7,7 +7,7 @@ type Props = {
   className?: string;
   // trackId: number;
   // playlistId?: number;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isActive?: boolean;
 };
 
@@ -21,7 +21,7 @@ const LikeButton = ({ className, onClick, isActive }: Props) => {
     <Button
       variant={'icon'}
       size={'icon'}
-      onClick={() => onClick?.()}
+      onClick={(e) => onClick?.(e)}
       className={cn(
         `
           relative

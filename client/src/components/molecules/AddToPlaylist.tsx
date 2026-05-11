@@ -18,7 +18,10 @@ const AddToPlaylist = ({ playlist, ...props }: Props) => {
   if (!trackId) return null;
 
   return (
-    <div {...props} className="flex gap-2 items-center">
+    <div
+      {...props}
+      className="grid grid-cols-[auto_1fr_auto] gap-2 items-center"
+    >
       <img
         className="w-8 h-8 aspect-square rounded-[8px]"
         src={playlist.image_path}
@@ -30,7 +33,7 @@ const AddToPlaylist = ({ playlist, ...props }: Props) => {
           {playlist.tracksIds.length} tracks
         </p>
       </div>
-      <LikeButton isActive={isActive} onClick={handleClick} />
+      <LikeButton className="" isActive={isActive} onClick={handleClick} />
     </div>
   );
 };
