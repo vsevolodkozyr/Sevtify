@@ -27,6 +27,8 @@ const AddTrackToPlaylistPopover = () => {
     };
   }, [onClose]);
 
+  console.log(isOpen);
+  
   if (!trackId) return null;
 
   return (

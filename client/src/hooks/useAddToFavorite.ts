@@ -1,45 +1,33 @@
 import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
-import {
-  useAddToPlaylist,
-  usePlaylist,
-  useRemoveFromPlaylist,
-} from './usePlaylists';
-import { useTrackPlaylists } from './useTracks';
+import { useTrackPlaylistStatus } from './useTracks';
+import { useAddToPlaylist, useRemoveFromPlaylist } from './usePlaylists';
 
 type Props = { trackId: number; playlistId?: number };
-
 const useAddToFavorite = ({ trackId, playlistId }: Props) => {
-  // console.log(trackId, playlistId);
-
-  const { trackPlaylists } = useTrackPlaylists(trackId);
-  // console.log(trackPlaylists);
-
-  const { data: currentPlaylist } = usePlaylist({ id: playlistId ?? 0 });
+  const { data: playlistStatus = [] } = useTrackPlaylistStatus(trackId);
   const { toggle } = useAddTrackToPlaylistPopover();
   const { mutateAsync: addToPlaylist } = useAddToPlaylist();
   const { mutateAsync: removeFromPlaylist } = useRemoveFromPlaylist();
-  const isInAnyPlaylist = trackPlaylists.length > 0;
+
+  const isInAnyPlaylist = playlistStatus.some((p) => p.isAdded);
   const isInCurrentPlaylist = playlistId
-    ? currentPlaylist?.tracks.some((track) => track.id === trackId)
+    ? (playlistStatus.find((p) => p.id === playlistId)?.isAdded ?? false)
     : false;
   const isActive = playlistId ? isInCurrentPlaylist : isInAnyPlaylist;
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (playlistId) {
-      // ── Режим плейлиста ──────────────────────────────
-
       if (isInCurrentPlaylist) {
-        await removeFromPlaylist({ trackId, playlistId });
-        console.log(trackPlaylists);
+        removeFromPlaylist({ trackId, playlistId });
       } else {
-        await addToPlaylist({ trackId, playlistId });
+        addToPlaylist({ trackId, playlistId });
       }
     } else {
-      // ── Режим бібліотеки ─────────────────────────────
-      if (!isInAnyPlaylist) {
-        await addToPlaylist({ trackId, playlistId: 1 }); // 1 = Favorites ID
+      if (isInAnyPlaylist) {
+        toggle(trackId);
       } else {
-        toggle(trackId); // відкрити popover
+        addToPlaylist({ trackId, playlistId: 1 });
       }
     }
   };

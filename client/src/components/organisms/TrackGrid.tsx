@@ -21,7 +21,7 @@ const TrackGrid = ({ tracks }: Props) => {
      "
       >
         {tracks.map((track) => {
-          return <TrackCard key={`${track.id}`} data={track} />;
+          return <TrackCard key={track.id} data={track} />;
         })}
       </div>
     </div>
