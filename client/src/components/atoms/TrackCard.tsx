@@ -1,14 +1,16 @@
 import type { Track } from '@/types';
 import { Button } from './Button';
 import { FaPlay } from 'react-icons/fa';
+import useAddToFavorite from '@/hooks/useAddToFavorite';
+import LikeButton from '../molecules/LikeButton';
 
 type Props = {
   data: Track;
 };
 
 const TrackCard = ({ data }: Props) => {
-  const { title, author, image_path } = data;
-
+  const { title, author, image_path, id } = data;
+  const { isActive, handleClick } = useAddToFavorite({ trackId: id });
   return (
     <div className="@container group w-full flex flex-col gap-2 p-3 bg-neutral-800 rounded-[8px] overflow-hidden">
       <div className="w-full aspect-square overflow-hidden relative">
@@ -31,6 +33,11 @@ const TrackCard = ({ data }: Props) => {
         >
           <FaPlay />
         </Button>
+        <LikeButton
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          isActive={isActive}
+          onClick={handleClick}
+        />
       </div>
       <div className="flex flex-col gap-0.5">
         <p className="text-[18px] font-medium truncate">{title}</p>
