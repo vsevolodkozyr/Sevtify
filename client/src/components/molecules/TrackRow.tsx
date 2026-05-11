@@ -1,8 +1,10 @@
 import type { Track } from '@/types';
-import React, { useMemo } from 'react';
-import { FaPlay, FaPlus } from 'react-icons/fa';
+
 import { IoIosMore } from 'react-icons/io';
-import { Button } from '../atoms/Button';
+
+import LikeButton from './LikeButton';
+import { FaPlay } from 'react-icons/fa';
+import useAddToFavorite from '@/hooks/useAddToFavorite';
 
 type Props = {
   data: Track;
@@ -10,10 +12,12 @@ type Props = {
 };
 
 const TrackRow = ({ data, index }: Props) => {
-  const { title, author, image_path, created_at, duration } = data;
-  // const date = useMemo(() => {
-  //   return new Date().toLocaleDateString();
-  // }, []);
+  const { id, title, author, image_path, created_at, duration } = data;
+
+  const { isActive, handleClick } = useAddToFavorite({
+    trackId: id,
+  });
+
   return (
     <div className="@container/main">
       <div className="@container px-4 py-1 gap-4  group grid grid-cols-[1fr_auto] @min-[600px]:grid-cols-[14px_minmax(180px,2fr)_minmax(50px,1fr)_minmax(50px,1fr)]   hover:bg-neutral-800 rounded-[8px]">
@@ -42,21 +46,16 @@ const TrackRow = ({ data, index }: Props) => {
           {created_at}
         </div>
         <div className="flex items-center justify-around ">
-          <Button
-            variant={'icon'}
-            size={'icon'}
-            className="
+          <LikeButton
+            isActive={isActive}
+            onClick={handleClick}
+            className={`
           hidden 
           opacity-0 
-          @min-[600px]/main:block 
-          cursor-pointer 
-          group-hover:opacity-100 
-          text-[16px]
-          transition-none
-          "
-          >
-            <FaPlus className="" />
-          </Button>
+          @min-[600px]/main:block
+          group-hover:opacity-100
+          transition-none `}
+          />
           <span className="hidden @min-[600px]/main:block text-neutral-400">
             {duration}
           </span>

@@ -1,3 +1,4 @@
+import AddTrackToPlaylistPopover from '@/components/organisms/AddTrackToPlaylistPopover';
 import MainLayout from '@/components/templates/MainLayout';
 import HomePage from '@/pages/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -10,6 +11,7 @@ function App() {
     <>
       <ToasterProvider />
       <ModalProvider />
+      <AddTrackToPlaylistPopover />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />

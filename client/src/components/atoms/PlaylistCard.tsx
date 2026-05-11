@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 type Props = { data: Playlist };
 
 const PlaylistCard = ({ data }: Props) => {
-  const { id, title, image_path } = data;
+  const { id, title, image_path, tracksIds } = data;
 
   return (
     <Link to={`/playlists/${id}`}>
@@ -15,7 +15,7 @@ const PlaylistCard = ({ data }: Props) => {
           <p className="text-[14px] text-neutral-400 leading-none truncate">
             <span>Playlist</span>
             {'*'}
-            <span>0 tracks</span>
+            <span>{tracksIds.length} tracks</span>
           </p>
         </div>
       </div>

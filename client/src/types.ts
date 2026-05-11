@@ -13,6 +13,7 @@ export interface Playlist {
   title: string;
   image_path: string;
   tracksIds: number[];
+  deletable: boolean;
   created_at: string;
 }
 
