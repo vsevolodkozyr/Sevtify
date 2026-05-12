@@ -1,8 +1,10 @@
 import type { Track } from '@/types';
 import { Button } from './Button';
-import { FaPlay } from 'react-icons/fa';
+import { FaPause, FaPlay } from 'react-icons/fa';
 import useAddToFavorite from '@/hooks/useAddToFavorite';
 import LikeButton from '../molecules/LikeButton';
+import usePlayer from '@/store/usePlayer';
+import { useMemo } from 'react';
 
 type Props = {
   data: Track;
@@ -11,6 +13,19 @@ type Props = {
 const TrackCard = ({ data }: Props) => {
   const { title, author, image_path, id } = data;
   const { isActive, handleClick } = useAddToFavorite({ trackId: id });
+  const setTrackId = usePlayer((state) => state.setTrackId);
+  const trackId = usePlayer((state) => state.currentTrackId);
+  const onPlayPause = usePlayer((state) => state.onPlayPause);
+  const isPaused = usePlayer((state) => state.pause);
+
+  const Icon = useMemo(() => {
+    if (id !== trackId) {
+      return FaPlay;
+    } else {
+      return isPaused ? FaPlay : FaPause;
+    }
+  }, [trackId, isPaused]);
+
   return (
     <div className="@container group w-full flex flex-col gap-2 p-3 bg-neutral-800 rounded-[8px] overflow-hidden">
       <div className="w-full aspect-square overflow-hidden relative">
@@ -27,11 +42,18 @@ const TrackCard = ({ data }: Props) => {
           alt={`Track ${title} - ${author}`}
         />
         <Button
+          onClick={() => {
+            if (id !== trackId) {
+              setTrackId(id);
+            } else {
+              onPlayPause();
+            }
+          }}
           variant={'icon'}
           size={'icon'}
           className="absolute bottom-1 right-1  text-[7cqw] text-black bg-primary p-3 translate-y-1/2 opacity-0 group-hover:translate-0 group-hover:opacity-100"
         >
-          <FaPlay />
+          <Icon />
         </Button>
         <LikeButton
           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"

@@ -7,9 +7,11 @@ import ModalProvider from '@/providers/ModalProvider';
 import ToasterProvider from '@/providers/ToasterProvider';
 import { Route, Routes } from 'react-router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import PlayerProvider from '@/providers/PlayerProvider';
 function App() {
   return (
     <>
+      <PlayerProvider />
       <ReactQueryDevtools initialIsOpen={false} />
       <ToasterProvider />
       <ModalProvider />
