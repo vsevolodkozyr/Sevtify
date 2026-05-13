@@ -43,7 +43,7 @@ const TrackVolumeSlider = () => {
           id="volume"
           min={0}
           max={1}
-          step={0.1}
+          step={0.01}
           value={volume}
           onChange={(e) => {
             const val = parseFloat(e.target.value);

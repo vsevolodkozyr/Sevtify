@@ -11,12 +11,12 @@ import {
 } from 'react-icons/tb';
 import { FiPlus } from 'react-icons/fi';
 import { cn } from '@/lib/utils';
-import useUploadModal from '@/store/useUploadModal';
+
 import { Button } from '../atoms/Button';
 import PlaylistsColumn from './PlaylistsColumn';
+import ChooseCreationPopover from './ChooseCreationPopover';
 
 const Sidebar = () => {
-  const { onOpen } = useUploadModal();
 
   const {
     startResize: startSidebarResize,
@@ -127,18 +127,18 @@ const Sidebar = () => {
                   My library
                 </span>
               </div>
-
-              <Button
-                variant={'icon'}
-                size={'icon'}
-                onClick={onOpen}
-                className={cn(
-                  'p-2 bg-neutral-400/20 rounded-full flex items-center gap-1 @min-[315px]:p-[8px_16px]',
-                )}
-              >
-                <FiPlus className="text-[20px] text-icon" />
-                <span className="hidden @min-[315px]:block">Create</span>
-              </Button>
+              <ChooseCreationPopover>
+                <Button
+                  variant={'icon'}
+                  size={'icon'}
+                  className={cn(
+                    'p-2 bg-neutral-400/20 rounded-full flex items-center gap-1 @min-[315px]:p-[8px_16px]',
+                  )}
+                >
+                  <FiPlus className="text-[20px] text-icon" />
+                  <span className="hidden @min-[315px]:block">Create</span>
+                </Button>
+              </ChooseCreationPopover>
             </div>
           </div>
 

@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <PlayerProvider />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <ToasterProvider />
       <ModalProvider />
       <AddTrackToPlaylistPopover />

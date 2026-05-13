@@ -15,6 +15,7 @@ export const useTrackById = (id: number) => {
   return useQuery({
     queryKey: trackKeys.detail(id),
     queryFn: () => tracksService.getTrackById(id),
+    enabled: !!id,
   });
 };
 
@@ -45,5 +46,6 @@ export const useTrackPlaylistStatus = (id: number) => {
   return useQuery({
     queryKey: trackKeys.playlistStatus(id),
     queryFn: () => tracksService.getTrackPlaylistStatus(id),
+    enabled: !!id,
   });
 };

@@ -2,7 +2,7 @@ import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
 import { useTrackPlaylistStatus } from './useTracks';
 import { useAddToPlaylist, useRemoveFromPlaylist } from './usePlaylists';
 
-type Props = { trackId: number; playlistId?: number };
+type Props = { trackId: number | null; playlistId?: number };
 const useAddToFavorite = ({ trackId, playlistId }: Props) => {
   const { data: playlistStatus = [] } = useTrackPlaylistStatus(trackId);
   const { toggle } = useAddTrackToPlaylistPopover();
@@ -17,6 +17,7 @@ const useAddToFavorite = ({ trackId, playlistId }: Props) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    if (!trackId) return;
     if (playlistId) {
       if (isInCurrentPlaylist) {
         removeFromPlaylist({ trackId, playlistId });
