@@ -32,5 +32,6 @@ export type PlaylistDetail = {
   title: string;
   image_path: string;
   created_at: string;
+  deletable: boolean;
   tracks: Track[];
 };

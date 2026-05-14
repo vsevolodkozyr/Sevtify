@@ -1,8 +1,13 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from '@tanstack/react-query';
 import * as tracksService from '../services/tracksService';
-import * as playlistService from '../services/playlistService';
 import { trackKeys } from '@/services/queryKeys';
 
+// GET    /tracks
 export const useTracks = () => {
   return useQuery({
     queryKey: trackKeys.all,
@@ -10,28 +15,43 @@ export const useTracks = () => {
   });
 };
 
-// POST — додати трек
-export const useCreateTrack = () => {
+// GET    /tracks/:id
+export const useTrackById = (id: number) => {
+  return useQuery({
+    queryKey: trackKeys.detail(id),
+    queryFn: () => tracksService.getTrackById(id),
+    enabled: !!id,
+    placeholderData: keepPreviousData,
+  });
+};
+
+// POST   /tracks
+export const useAddTrack = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: tracksService.addTrack,
+    mutationFn: (formData: FormData) => tracksService.addTrack(formData),
     onSuccess: () => {
-      // інвалідуємо весь список треків → автоматичний refetch
       queryClient.invalidateQueries({ queryKey: trackKeys.all });
     },
   });
 };
 
-// NOT ON PRODUCTION
-// hooks/useTrackPlaylists.ts
-import { playlistKeys } from '@/services/queryKeys';
-export const useTrackPlaylists = (trackId: number) => {
-  const { data: trackPlaylists = [] } = useQuery({
-    queryKey: [...playlistKeys.all, 'byTrack', trackId], // ← додати trackId
-    queryFn: () => playlistService.getAllPlaylists(),
-    select: (playlists) =>
-      playlists.filter((p) => p.tracksIds.includes(trackId)),
+// DELETE /tracks/:id
+export const useDeleteTrack = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => tracksService.deleteTrack(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: trackKeys.all });
+    },
   });
+};
 
-  return { trackPlaylists };
+// GET    /tracks/:id/playlist-status
+export const useTrackPlaylistStatus = (id: number) => {
+  return useQuery({
+    queryKey: trackKeys.playlistStatus(id),
+    queryFn: () => tracksService.getTrackPlaylistStatus(id),
+    enabled: !!id,
+  });
 };

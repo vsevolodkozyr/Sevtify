@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const { isFetching, data, isError, error } = useTracks();
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     if (isError) {

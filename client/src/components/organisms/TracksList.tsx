@@ -9,7 +9,7 @@ const TracksList = ({ tracks }: Props) => {
   return (
     <div className="">
       {tracks.map((track, index) => {
-        return <TrackRow key={track.id + index} data={track} index={index} />;
+        return <TrackRow key={track.id} data={track} tracks={tracks} index={index} />;
       })}
     </div>
   );

@@ -13,7 +13,7 @@ const AddToPlaylist = ({ playlist, ...props }: Props) => {
     playlistId: playlist.id,
   });
 
-  console.log(trackId, playlist, isActive);
+  // console.log(trackId, playlist, isActive);
 
   if (!trackId) return null;
 

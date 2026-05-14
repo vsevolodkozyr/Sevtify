@@ -1,54 +1,77 @@
-import { playlistKeys } from '@/services/queryKeys';
+import { playlistKeys, trackKeys } from '@/services/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as playlistService from '../services/playlistService';
+import { mockPromise } from '@/data/mockUtils';
 
-export const usePlaylists = () => {
+// GET    /playlists
+export function usePlaylists() {
   return useQuery({
     queryKey: playlistKeys.all,
-    queryFn: () => playlistService.getAllPlaylists(),
+    queryFn: playlistService.getAllPlaylists,
+  });
+}
+
+export const useAddPlaylist = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (formData: FormData) =>
+      mockPromise(() => playlistService.createPlaylist(formData)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+    },
   });
 };
-export const usePlaylist = ({ id }: { id: number }) => {
+
+// GET    /playlists/:id
+export function usePlaylist({ id }: { id: number }) {
   return useQuery({
     queryKey: playlistKeys.detail(id),
     queryFn: () => playlistService.getPlaylist({ id }),
   });
-};
+}
 
-export const useAddToPlaylist = () => {
+// POST   /playlists/:id/tracks
+export function useAddToPlaylist() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
-      trackId,
       playlistId,
+      trackId,
     }: {
-      trackId: number;
       playlistId: number;
-    }) => playlistService.addTrackToPlaylist(trackId, playlistId),
-    onSuccess: (_, { playlistId }) => {
+      trackId: number;
+    }) => playlistService.addTrackToPlaylist({ playlistId, trackId }),
+    onSuccess: (_, { playlistId, trackId }) => {
       queryClient.invalidateQueries({ queryKey: playlistKeys.all });
       queryClient.invalidateQueries({
         queryKey: playlistKeys.detail(playlistId),
       });
+      queryClient.invalidateQueries({
+        queryKey: trackKeys.playlistStatus(trackId),
+      });
     },
   });
-};
+}
 
-export const useRemoveFromPlaylist = () => {
+// DELETE /playlists/:id/tracks/:trackId
+export function useRemoveFromPlaylist() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
-      trackId,
       playlistId,
+      trackId,
     }: {
-      trackId: number;
       playlistId: number;
-    }) => playlistService.removeTrackFromPlaylist(trackId, playlistId),
-    onSuccess: (_, { playlistId }) => {
+      trackId: number;
+    }) => playlistService.removeTrackFromPlaylist({ playlistId, trackId }),
+    onSuccess: (_, { playlistId, trackId }) => {
       queryClient.invalidateQueries({ queryKey: playlistKeys.all });
       queryClient.invalidateQueries({
         queryKey: playlistKeys.detail(playlistId),
       });
+      queryClient.invalidateQueries({
+        queryKey: trackKeys.playlistStatus(trackId),
+      });
     },
   });
-};
+}

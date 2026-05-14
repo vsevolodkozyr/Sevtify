@@ -8,6 +8,7 @@ const PlaylistsColumn = () => {
     return <h1>No playlists</h1>;
   }
 
+  console.log(data);
   return (
     <div className=" grid grid-cols-1 ">
       {data.map((playlist) => {

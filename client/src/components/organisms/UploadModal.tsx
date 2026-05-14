@@ -5,13 +5,14 @@ import type { FieldValues, SubmitHandler } from 'react-hook-form';
 import Input from '../atoms/Input';
 import { Button } from '../atoms/Button';
 import toast from 'react-hot-toast';
-import { useCreateTrack } from '@/hooks/useTracks';
+import { useAddTrack } from '@/hooks/useTracks';
+
 const UploadModel = () => {
   const { isOpen, onClose } = useUploadModal();
 
   const { register, handleSubmit, reset } = useForm<FieldValues>();
 
-  const { isPending, mutateAsync: uploadTrack } = useCreateTrack();
+  const { isPending, mutateAsync: uploadTrack } = useAddTrack();
 
   const onChange = (open: boolean) => {
     if (!open) {
