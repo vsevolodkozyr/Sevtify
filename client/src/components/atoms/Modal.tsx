@@ -1,31 +1,57 @@
+import { cn } from '@/lib/utils';
 import * as Dialog from '@radix-ui/react-dialog';
 import { IoIosClose } from 'react-icons/io';
 
 type Props = {
   isOpen: boolean;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   onChange: (open: boolean) => void;
   children: React.ReactNode;
+  className?: string;
+  srOnly?: boolean;
 };
 
-const Modal = ({ isOpen, onChange, title, description, children }: Props) => {
+const Modal = ({
+  isOpen,
+  onChange,
+  title,
+  description,
+  children,
+  srOnly = false,
+  className = '',
+}: Props) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-neutral-900/30 fixed inset-0 backdrop-blur-[5px]" />
         <Dialog.Content
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+          className={cn(
+            `fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
          bg-neutral-800 border border-neutral-700 rounded-md 
-         size-full  md:max-w-[85vw] md:w-fit md:min-w-[45vw] md:max-h-[85vh] md:h-fit p-6"
+         size-full  md:max-w-[85vw] md:w-fit md:min-w-[45vw] md:max-h-[85vh] md:h-fit p-6`,
+            className,
+          )}
         >
-          <Dialog.Title className="text-center text-[24px] font-bold mb-4">
+          <Dialog.Title
+            className={cn(
+              'text-center text-[24px] font-bold mb-4',
+              srOnly && 'sr-only',
+            )}
+          >
             {title}
           </Dialog.Title>
-          <Dialog.Description className="text-center text-[18px] leading-normal mb-5 text-neutral-400">
+
+          <Dialog.Description
+            className={cn(
+              'text-center text-[18px] leading-normal mb-5 text-neutral-400',
+              srOnly && 'sr-only',
+            )}
+          >
             {description}
           </Dialog.Description>
-          <div>{children}</div>
+
+          {children}
           <Dialog.Close asChild>
             <button
               className="

@@ -155,3 +155,18 @@ html {
     transform: none;
   }
 }
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(250px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.25s ease-in-out forwards;
+}

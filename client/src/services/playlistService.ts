@@ -2,6 +2,7 @@ import type { Playlist, PlaylistDetail } from '@/types';
 import { mockPromise } from '@/data/mockUtils';
 import {
   addTrackToPlaylistMock,
+  createPlaylistMock,
   getPlaylistById,
   getPlaylists,
   removeTrackFromPlaylistMock,
@@ -25,6 +26,10 @@ export function getPlaylist({
   id: number;
 }): Promise<PlaylistDetail | null> {
   return mockPromise<PlaylistDetail | null>(() => getPlaylistById(id));
+}
+
+export function createPlaylist(formData: FormData) {
+  return createPlaylistMock(formData);
 }
 
 // POST   /playlists/:id/tracks

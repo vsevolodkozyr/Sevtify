@@ -1,6 +1,7 @@
 import { playlistKeys, trackKeys } from '@/services/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as playlistService from '../services/playlistService';
+import { mockPromise } from '@/data/mockUtils';
 
 // GET    /playlists
 export function usePlaylists() {
@@ -9,6 +10,17 @@ export function usePlaylists() {
     queryFn: playlistService.getAllPlaylists,
   });
 }
+
+export const useAddPlaylist = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (formData: FormData) =>
+      mockPromise(() => playlistService.createPlaylist(formData)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+    },
+  });
+};
 
 // GET    /playlists/:id
 export function usePlaylist({ id }: { id: number }) {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Popover } from '../atoms/Popover';
 import useUploadModal from '@/store/useUploadModal';
 import { Button } from '../atoms/Button';
+import usePlaylistModal from '@/store/usePlaylistModal';
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ type Props = {
 const ChooseCreationPopover = ({ children, side = 'right' }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { onOpen } = useUploadModal();
-
+  const { onOpen: onOpenPlaylist } = usePlaylistModal();
   return (
     <Popover.Main
       isOpen={isOpen}
@@ -25,7 +26,7 @@ const ChooseCreationPopover = ({ children, side = 'right' }: Props) => {
           <Button variant={'default'} size={'default'} onClick={onOpen}>
             Track
           </Button>
-          <Button variant={'default'} size={'default'}>
+          <Button variant={'default'} size={'default'} onClick={onOpenPlaylist}>
             Playlist
           </Button>
         </div>

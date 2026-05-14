@@ -3,15 +3,17 @@ import FooterTrack from '../molecules/FooterTrack';
 import LikeButton from '../molecules/LikeButton';
 import useAddToFavorite from '@/hooks/useAddToFavorite';
 import * as Progress from '@radix-ui/react-progress';
+import useNowPlayingModal from '@/store/useNowPlayingModal';
 const FloatingMobileTrack = () => {
   const trackId = usePlayer((state) => state.currentTrackId);
   const { isActive, handleClick } = useAddToFavorite({ trackId });
   const duration = usePlayer((state) => state.duration);
   const time = usePlayer((state) => state.time);
+  const { onOpen } = useNowPlayingModal();
   if (!trackId || !duration) return null;
 
   return (
-    <div className="px-2 w-full">
+    <div className="px-2 w-full" onClick={onOpen}>
       <div className="px-2 py-1 pb-1.5 bg-neutral-700/80 rounded-[8px] relative overflow-hidden">
         <div className="flex items-center">
           <div className="flex-1">

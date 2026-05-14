@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from '@tanstack/react-query';
 import * as tracksService from '../services/tracksService';
 import { trackKeys } from '@/services/queryKeys';
 
@@ -16,6 +21,7 @@ export const useTrackById = (id: number) => {
     queryKey: trackKeys.detail(id),
     queryFn: () => tracksService.getTrackById(id),
     enabled: !!id,
+    placeholderData: keepPreviousData,
   });
 };
 
