@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router';
 import type { IconType } from 'react-icons';
 import ChooseCreationPopover from './ChooseCreationPopover';
 import { FiPlus } from 'react-icons/fi';
-
+import { IoLibrary } from 'react-icons/io5';
 type NavLink = {
   type: 'link';
   icon: IconType;
@@ -60,6 +60,12 @@ const MobileNav = () => {
         icon: HiHome,
         label: 'Home',
         href: '/',
+      },
+      {
+        type: 'link',
+        icon: IoLibrary,
+        label: 'Library',
+        href: '/playlists',
       },
       {
         type: 'custom',

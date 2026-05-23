@@ -1,51 +1,74 @@
 import { usePlaylists } from '@/hooks/usePlaylists';
 
 import { cn } from '@/lib/utils';
-import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
-import { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 import AddToPlaylist from '../molecules/AddToPlaylist';
+import { Popover } from '../atoms/Popover';
+import { Button } from '../atoms/Button';
+import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
+import { useSavePlaylists } from '@/hooks/useSavePlaylists';
 
-// type Props = { trackId?: number };
+type Props = { children: React.ReactNode; isActive: boolean };
 
-const AddTrackToPlaylistPopover = () => {
-  const { isOpen, trackId, onClose } = useAddTrackToPlaylistPopover();
+// type changePlaylist = {
+//   number: number[];
+// };
+
+const AddTrackToPlaylistPopover = ({ children, isActive }: Props) => {
+  const trackId = useAddTrackToPlaylistPopover((state) => state.trackId);
+  const [isOpen, setOpen] = useState(false);
   const { data } = usePlaylists();
-  const ref = useRef<HTMLDivElement>(null);
+  const [playlistsToChange, setPlaylistsToChange] = useState([]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose();
+  const { handleSave } = useSavePlaylists(trackId, playlistsToChange);
+  console.log(playlistsToChange);
+
+  const handleClick = ({ id, method }: { id: number; method: boolean }) => {
+    setPlaylistsToChange((old) => {
+      const copy = JSON.parse(JSON.stringify(old));
+      if (copy.find(({ id: i }) => i === id)) {
+        return copy.filter(({ id: i }) => i !== id);
+      } else {
+        copy.push({ id, method });
+        return copy;
       }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [onClose]);
-
-  console.log(isOpen);
-  
-  if (!trackId) return null;
+    });
+  };
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        'fixed top-0 left-0 bg-neutral-800 z-100 p-3 rounded-[8px]',
-        !isOpen && 'hidden',
-      )}
+    <Popover.Main
+      isOpen={isOpen}
+      onChange={(e) => {
+        if (isActive) setOpen(e);
+        setPlaylistsToChange([]);
+      }}
     >
-      <p className="text-[18px] font-bold mb-2">Add to playlist</p>
-      <div className="flex flex-col gap-1">
-        {data?.map((playlist) => (
-          <AddToPlaylist key={playlist.id} playlist={playlist} />
-        ))}
-      </div>
-    </div>
+      <Popover.Anchor>{children}</Popover.Anchor>
+      <Popover.Content
+        className={cn('bg-neutral-800 z-100 p-3 rounded-[8px] max-w-[200px]')}
+      >
+        <p className="text-[18px] font-bold mb-2">Add to playlist</p>
+        <div className="flex flex-col gap-1">
+          {data?.map((playlist) => (
+            <AddToPlaylist
+              key={playlist.id}
+              playlist={playlist}
+              trackId={trackId}
+              handleClick={handleClick}
+            />
+          ))}
+        </div>
+        <Button
+          onClick={() => {
+            handleSave();
+            setOpen(false);
+          }}
+        >
+          Confirm
+        </Button>
+      </Popover.Content>
+    </Popover.Main>
   );
 };
 

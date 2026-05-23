@@ -1,16 +1,15 @@
 import { useMemo } from 'react';
 
 type Props = {
-  number: number;
+  number: number | undefined;
 };
 
-const TimeNumber = ({ number }: Props) => {
-  const time = useMemo(() => {
-    return new Date(number * 1000).toLocaleTimeString().slice(3);
-  }, [number]);
+const TimeNumber = ({ number = 0 }: Props) => {
+  const time = new Date(number * 1000).toLocaleTimeString().slice(3);
+
   return (
     <span className="text-neutral-400 leading-none tabular-nums text-[18px]">
-      {time}
+      {time || '00:00'}
     </span>
   );
 };

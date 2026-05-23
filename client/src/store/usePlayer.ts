@@ -73,7 +73,7 @@ const usePlayer = create<PlayerStore>((set) => ({
         return {
           ...state,
           currentTrackId: id,
-          currentTrackUrl: track.track_path,
+          currentTrackUrl: track.trackPath,
         };
       }
       return {
@@ -99,7 +99,7 @@ const usePlayer = create<PlayerStore>((set) => ({
       return {
         ...state,
         currentTrackId: nextTrack.id,
-        currentTrackUrl: nextTrack.track_path,
+        currentTrackUrl: nextTrack.trackPath,
       };
     });
   },
@@ -115,7 +115,7 @@ const usePlayer = create<PlayerStore>((set) => ({
       return {
         ...state,
         currentTrackId: prevTrack.id,
-        currentTrackUrl: prevTrack.track_path,
+        currentTrackUrl: prevTrack.trackPath,
       };
     });
   },

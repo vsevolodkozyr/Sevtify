@@ -2,6 +2,9 @@ import usePlayer from '@/store/usePlayer';
 import { Howl } from 'howler';
 import { useEffect, useRef } from 'react';
 
+const SERVER_ORIGIN = import.meta.env.VITE_SERVER_CONTENT_URL || "";
+
+
 const PlayerProvider = () => {
   const {
     currentTrackUrl,
@@ -20,7 +23,7 @@ const PlayerProvider = () => {
       setTime(sound?.seek() as number);
     };
     const sound = new Howl({
-      src: [currentTrackUrl],
+      src: [`${SERVER_ORIGIN}${currentTrackUrl}`],
       html5: true,
       volume: volume,
       format: ['mp3'],

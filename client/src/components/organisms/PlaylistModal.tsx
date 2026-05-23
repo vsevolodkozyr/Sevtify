@@ -25,7 +25,7 @@ const PlaylistModal = () => {
     try {
       const formData = new FormData();
       formData.append('title', values.title);
-      formData.append('image_path', values.image[0]);
+      formData.append('imageFile', values.image[0]);
       const result = await uploadPlaylist(formData);
       toast.success(`Playlist  ${result.title} added`);
       onClose();

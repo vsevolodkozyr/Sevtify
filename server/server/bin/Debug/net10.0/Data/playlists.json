@@ -1,0 +1,36 @@
+[
+  {
+    "Id": 0,
+    "Title": "Favorite",
+    "TracksIds": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "Tracks": [],
+    "ImagePath": "/uploads/images/favorite.jfif",
+    "IsDeletable": true,
+    "CreatedAt": "2026-05-15T18:03:17.758201+03:00"
+  },
+  {
+    "Id": 1,
+    "Title": "Seva 1",
+    "TracksIds": [],
+    "Tracks": [],
+    "ImagePath": "/uploads/images/f0f23162-096d-458b-9d88-e7b04700168b.jfif",
+    "IsDeletable": true,
+    "CreatedAt": "2026-05-16T20:45:39.0570326+03:00"
+  },
+  {
+    "Id": 2,
+    "Title": "\u041F\u043B\u0435\u0439\u043B\u0438\u0441\u0442 SUPER PUPER",
+    "TracksIds": [],
+    "Tracks": [],
+    "ImagePath": "/uploads/images/860b4b13-2d2c-4105-ae0c-eb0d0252b9da.jfif",
+    "IsDeletable": true,
+    "CreatedAt": "2026-05-17T11:50:43.1493653+03:00"
+  }
+]

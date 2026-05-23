@@ -5,13 +5,14 @@ import {
   keepPreviousData,
 } from '@tanstack/react-query';
 import * as tracksService from '../services/tracksService';
-import { trackKeys } from '@/services/queryKeys';
+import { playlistKeys, trackKeys } from '@/services/queryKeys';
+import usePlayer from '@/store/usePlayer';
 
 // GET    /tracks
-export const useTracks = () => {
+export const useTracks = (searchQuery: string) => {
   return useQuery({
-    queryKey: trackKeys.all,
-    queryFn: () => tracksService.getAllTracks(),
+    queryKey: [...trackKeys.all, { search: searchQuery }],
+    queryFn: () => tracksService.getAllTracks(searchQuery),
   });
 };
 
@@ -35,14 +36,37 @@ export const useAddTrack = () => {
     },
   });
 };
+// UPDATE   /tracks
+export const useUpdateTrack = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, formData }: { id: number; formData: FormData }) =>
+      tracksService.updateTrack(id, formData),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: trackKeys.all });
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+
+      queryClient.invalidateQueries({ queryKey: trackKeys.detail(id) });
+    },
+  });
+};
 
 // DELETE /tracks/:id
 export const useDeleteTrack = () => {
   const queryClient = useQueryClient();
+  const currentTrackId = usePlayer((state) => state.currentTrackId);
+  const clearTrack = usePlayer((state) => state.setTrackId); // or setTrackId(null)
   return useMutation({
     mutationFn: (id: number) => tracksService.deleteTrack(id),
-    onSuccess: () => {
+    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: trackKeys.all });
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+      queryClient.removeQueries({ queryKey: trackKeys.detail(id) });
+      queryClient.removeQueries({ queryKey: trackKeys.playlistStatus(id) });
+
+      if (currentTrackId === id) {
+        clearTrack(null);
+      }
     },
   });
 };

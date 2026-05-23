@@ -26,8 +26,8 @@ const UploadModel = () => {
       const formData = new FormData();
       formData.append('title', values.title);
       formData.append('author', values.author);
-      formData.append('image_path', values.image[0]);
-      formData.append('track_path', values.track[0]);
+      formData.append('imageFile', values.image[0]);
+      formData.append('trackFile', values.track[0]);
       const result = await uploadTrack(formData);
       toast.success(
         `Track ${result.author} - ${result.title} - ${result.duration} added`,

@@ -1,24 +1,25 @@
 import { useTrackById } from '@/hooks/useTracks';
 import usePlayer from '@/store/usePlayer';
+import Image from '../atoms/Image';
 
 const FooterTrack = () => {
   const trackId = usePlayer((state) => state.currentTrackId);
-  const { data: track } = useTrackById(trackId || 0);
+  const { data: track, error } = useTrackById(trackId);
 
-  if (!track) {
+  if (!track || !trackId || error) {
     return null;
   }
 
-  const { title, image_path, author } = track;
+  const { title, imagePath, author } = track;
 
   return (
     <div className="flex gap-4 items-center">
-      <img
-        className={`size-16 aspect-square rounded-[8px]`}
-        src={image_path}
+      <Image
+        className={`size-16 aspect-square rounded-[8px] object-cover`}
+        src={imagePath}
         alt={title}
       />
-      <div>
+      <div className='truncate'>
         <p className="font-bold truncate">{title}</p>
         <p className="text-neutral-400 truncate">{author}</p>
       </div>

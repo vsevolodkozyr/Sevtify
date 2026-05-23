@@ -1,7 +1,68 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\controllers\\playlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\controllers\\playlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\controllers\\trackscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\controllers\\trackscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\services\\trackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\services\\trackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\services\\interfaces\\itrackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\services\\interfaces\\itrackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\data\\playlists.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\data\\playlists.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\services\\interfaces\\iplaylistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\services\\interfaces\\iplaylistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\services\\playlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\services\\playlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\data\\tracks.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\data\\tracks.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\dtos\\addtrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\dtos\\addtrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\dtos\\playlisthastrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\dtos\\playlisthastrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\dtos\\createplaylistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\dtos\\createplaylistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\dtos\\createtrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\dtos\\createtrackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|s:\\university\\bachelor\\1 year\\2 semester\\\u043E\u043E\u043F\\sevtify\\server\\server\\repositories\\jsonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3461765F-60A1-21BC-764E-FC799869FE2F}|server\\server.csproj|solutionrelative:server\\repositories\\jsonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +70,195 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ITrackService.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\Interfaces\\ITrackService.cs",
+              "RelativeDocumentMoniker": "server\\Services\\Interfaces\\ITrackService.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\Interfaces\\ITrackService.cs",
+              "RelativeToolTip": "server\\Services\\Interfaces\\ITrackService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T11:52:25.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PlaylistHasTrackDto.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\PlaylistHasTrackDto.cs",
+              "RelativeDocumentMoniker": "server\\DTOs\\PlaylistHasTrackDto.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\PlaylistHasTrackDto.cs",
+              "RelativeToolTip": "server\\DTOs\\PlaylistHasTrackDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-16T15:23:47.345Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AddTrackDto.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\AddTrackDto.cs",
+              "RelativeDocumentMoniker": "server\\DTOs\\AddTrackDto.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\AddTrackDto.cs",
+              "RelativeToolTip": "server\\DTOs\\AddTrackDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T15:25:46.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JsonRepository.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Repositories\\JsonRepository.cs",
+              "RelativeDocumentMoniker": "server\\Repositories\\JsonRepository.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Repositories\\JsonRepository.cs",
+              "RelativeToolTip": "server\\Repositories\\JsonRepository.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T13:19:16.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlaylistService.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\PlaylistService.cs",
+              "RelativeDocumentMoniker": "server\\Services\\PlaylistService.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\PlaylistService.cs",
+              "RelativeToolTip": "server\\Services\\PlaylistService.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAUwJIAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T13:05:16.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CreateTrackDto.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\CreateTrackDto.cs",
+              "RelativeDocumentMoniker": "server\\DTOs\\CreateTrackDto.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\CreateTrackDto.cs",
+              "RelativeToolTip": "server\\DTOs\\CreateTrackDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T13:02:42.025Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreatePlaylistDto.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\CreatePlaylistDto.cs",
+              "RelativeDocumentMoniker": "server\\DTOs\\CreatePlaylistDto.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\DTOs\\CreatePlaylistDto.cs",
+              "RelativeToolTip": "server\\DTOs\\CreatePlaylistDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T13:02:24.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Playlist.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Models\\Playlist.cs",
+              "RelativeDocumentMoniker": "server\\Models\\Playlist.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Models\\Playlist.cs",
+              "RelativeToolTip": "server\\Models\\Playlist.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T12:47:07.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IPlaylistService.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\Interfaces\\IPlaylistService.cs",
+              "RelativeDocumentMoniker": "server\\Services\\Interfaces\\IPlaylistService.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\Interfaces\\IPlaylistService.cs",
+              "RelativeToolTip": "server\\Services\\Interfaces\\IPlaylistService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAnwBMAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T12:59:19.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlaylistsController.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Controllers\\PlaylistsController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\PlaylistsController.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Controllers\\PlaylistsController.cs",
+              "RelativeToolTip": "server\\Controllers\\PlaylistsController.cs",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAcwIkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T12:57:40.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TrackService.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\TrackService.cs",
+              "RelativeDocumentMoniker": "server\\Services\\TrackService.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Services\\TrackService.cs",
+              "RelativeToolTip": "server\\Services\\TrackService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAwwAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T10:42:39.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "playlists.json",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Data\\playlists.json",
+              "RelativeDocumentMoniker": "server\\Data\\playlists.json",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Data\\playlists.json",
+              "RelativeToolTip": "server\\Data\\playlists.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-15T12:51:16.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Program.cs",
+              "RelativeDocumentMoniker": "server\\Program.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Program.cs",
+              "RelativeToolTip": "server\\Program.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAawDEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-14T13:35:07.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "tracks.json",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Data\\tracks.json",
+              "RelativeDocumentMoniker": "server\\Data\\tracks.json",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Data\\tracks.json",
+              "RelativeToolTip": "server\\Data\\tracks.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-15T11:19:38.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TracksController.cs",
+              "DocumentMoniker": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Controllers\\TracksController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\TracksController.cs",
+              "ToolTip": "S:\\University\\Bachelor\\1 year\\2 semester\\\u041E\u041E\u041F\\Sevtify\\server\\server\\Controllers\\TracksController.cs",
+              "RelativeToolTip": "server\\Controllers\\TracksController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwBkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-14T13:31:09.265Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -47,10 +47,15 @@ const PopoverContent = ({
 
 type PopoverAnchorProps = {
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
 };
 
-const PopoverAnchor = ({ children }: PopoverAnchorProps) => {
-  return <PopoverUI.Trigger asChild={true}>{children}</PopoverUI.Trigger>;
+const PopoverAnchor = ({ children, ...props }: PopoverAnchorProps) => {
+  return (
+    <PopoverUI.Trigger asChild={true} {...props}>
+      {children}
+    </PopoverUI.Trigger>
+  );
 };
 
 export const Popover = {

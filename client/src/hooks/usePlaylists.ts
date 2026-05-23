@@ -1,5 +1,10 @@
 import { playlistKeys, trackKeys } from '@/services/queryKeys';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import * as playlistService from '../services/playlistService';
 import { mockPromise } from '@/data/mockUtils';
 
@@ -7,7 +12,7 @@ import { mockPromise } from '@/data/mockUtils';
 export function usePlaylists() {
   return useQuery({
     queryKey: playlistKeys.all,
-    queryFn: playlistService.getAllPlaylists,
+    queryFn: () => playlistService.getAllPlaylists(),
   });
 }
 
@@ -15,7 +20,7 @@ export const useAddPlaylist = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (formData: FormData) =>
-      mockPromise(() => playlistService.createPlaylist(formData)),
+      playlistService.createPlaylist(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: playlistKeys.all });
     },
@@ -27,6 +32,8 @@ export function usePlaylist({ id }: { id: number }) {
   return useQuery({
     queryKey: playlistKeys.detail(id),
     queryFn: () => playlistService.getPlaylist({ id }),
+    enabled: id !== null,
+    retry: 0,
   });
 }
 
@@ -71,6 +78,36 @@ export function useRemoveFromPlaylist() {
       });
       queryClient.invalidateQueries({
         queryKey: trackKeys.playlistStatus(trackId),
+      });
+    },
+  });
+}
+
+// UPDATE
+export const useUpdatePlaylist = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, formData }: { id: number; formData: FormData }) =>
+      playlistService.updatePlaylist(id, formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+    },
+  });
+};
+
+// DELETE /playlists/:id
+export function useDeletePlaylist() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ playlistId }: { playlistId: number }) =>
+      playlistService.deletePlaylist({ playlistId }),
+    onSuccess: (_, { playlistId }) => {
+      queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+      queryClient.invalidateQueries({
+        queryKey: playlistKeys.detail(playlistId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: trackKeys.all,
       });
     },
   });

@@ -8,10 +8,17 @@ type Props = {
   // trackId: number;
   // playlistId?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isActive?: boolean;
 };
 
-const LikeButton = ({ className, onClick, isActive }: Props) => {
+const LikeButton = ({
+  className,
+  onClick,
+  isActive,
+  handleClick,
+  ...props
+}: Props) => {
   // const { isActive: isLiked, handleClick } = useAddToFavorite({
   //   trackId,
   //   playlistId,
@@ -21,7 +28,10 @@ const LikeButton = ({ className, onClick, isActive }: Props) => {
     <Button
       variant={'icon'}
       size={'icon'}
-      onClick={(e) => onClick?.(e)}
+      onClick={(e) => {
+        onClick?.(e);
+        handleClick?.(e);
+      }}
       className={cn(
         `
           relative
@@ -35,6 +45,7 @@ const LikeButton = ({ className, onClick, isActive }: Props) => {
         isActive && 'bg-primary text-black border-primary',
         className,
       )}
+      {...props}
     >
       {isActive ? <FaCheck /> : <FaPlus />}
     </Button>

@@ -15,8 +15,10 @@ import { cn } from '@/lib/utils';
 import { Button } from '../atoms/Button';
 import PlaylistsColumn from './PlaylistsColumn';
 import ChooseCreationPopover from './ChooseCreationPopover';
+import { useSidebar } from '@/store/useSidebar';
 
 const Sidebar = () => {
+  const setIsCollapsed = useSidebar((state) => state.setIsCollapsed);
 
   const {
     startResize: startSidebarResize,
@@ -32,6 +34,10 @@ const Sidebar = () => {
     initial: 300,
     colapseWidth: 280,
   });
+
+  useEffect(() => {
+    setIsCollapsed(isColapsed);
+  }, [isColapsed]);
 
   useEffect(() => {
     document.documentElement.style.setProperty(

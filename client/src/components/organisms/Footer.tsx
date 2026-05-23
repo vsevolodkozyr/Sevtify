@@ -6,6 +6,10 @@ import MobileNav from './MobileNav';
 import FloatingMobileTrack from './FloatingMobileTrack';
 import PlayerControls from '../molecules/PlayerControls';
 
+const IsolateTimeSlider = () => {
+  return <TrackTimeSlider />;
+};
+
 const Footer = () => {
   return (
     <footer className="[grid-area:footer] sm:relative fixed bottom-0 left-0 w-full ">
@@ -15,7 +19,7 @@ const Footer = () => {
         </div>
         <div className="mx-auto w-full">
           <PlayerControls />
-          <TrackTimeSlider />
+          <IsolateTimeSlider />
         </div>
         <div className="flex items-center justify-end">
           <div className="max-w-[200px]">

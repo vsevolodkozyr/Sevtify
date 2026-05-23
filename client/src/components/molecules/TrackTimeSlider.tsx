@@ -3,10 +3,16 @@ import TimeNumber from '../atoms/TimeNumber';
 
 const TrackTimeSlider = () => {
   const time = usePlayer((state) => state.time);
-  const duration = usePlayer((state) => state.duration);
+  let duration = usePlayer((state) => state.duration);
   const onChangeTime = usePlayer((state) => state.onChangeTime);
   const onMute = usePlayer((state) => state.onMute);
   const onUnmute = usePlayer((state) => state.onUnmute);
+  const trackId = usePlayer((state) => state.currentTrackId);
+
+  if (trackId === null) {
+    duration = 0;
+  }
+
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center">
@@ -44,7 +50,7 @@ const TrackTimeSlider = () => {
             //   onPlayPause();
             onUnmute();
           }}
-          disabled={duration === 0}
+          disabled={trackId === null}
         />
       </div>
       <div className="flex items-center">

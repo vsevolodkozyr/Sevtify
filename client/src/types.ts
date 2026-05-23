@@ -11,27 +11,27 @@
 export interface Playlist {
   id: number;
   title: string;
-  image_path: string;
+  imagePath: string;
   tracksIds: number[];
   deletable: boolean;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface Track {
   id: number;
   author: string;
   title: string;
-  track_path: string;
-  image_path: string;
+  trackPath: string;
+  imagePath: string;
   duration: number;
-  created_at: string;
+  createdAt: string;
 }
 
 export type PlaylistDetail = {
   id: number;
   title: string;
-  image_path: string;
-  created_at: string;
+  imagePath: string;
+  createdAt: string;
   deletable: boolean;
   tracks: Track[];
 };

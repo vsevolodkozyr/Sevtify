@@ -5,6 +5,8 @@ import useAddToFavorite from '@/hooks/useAddToFavorite';
 import LikeButton from '../molecules/LikeButton';
 import usePlayer from '@/store/usePlayer';
 import { useMemo } from 'react';
+import Image from './Image';
+import AddTrackToPlaylistPopover from '../organisms/AddTrackToPlaylistPopover';
 
 type Props = {
   data: Track;
@@ -12,7 +14,7 @@ type Props = {
 };
 
 const TrackCard = ({ data, tracks }: Props) => {
-  const { title, author, image_path, id } = data;
+  const { title, author, imagePath, id } = data;
   const { isActive, handleClick } = useAddToFavorite({ trackId: id });
   const setTrackId = usePlayer((state) => state.setTrackId);
   const setPlaylist = usePlayer((state) => state.setPlaylist);
@@ -32,13 +34,13 @@ const TrackCard = ({ data, tracks }: Props) => {
   return (
     <div className="@container group w-full flex flex-col gap-2 p-3 bg-neutral-800 rounded-[8px] overflow-hidden">
       <div className="w-full aspect-square overflow-hidden relative">
-        <img
+        <Image
           className={`
             size-full
             rounded-[8px]
             object-cover
             `}
-          src={image_path || '/'}
+          src={imagePath || '/'}
           onError={(e) => {
             e.target.attributes.src.value = '/fallback/track.jfif';
           }}
@@ -62,11 +64,13 @@ const TrackCard = ({ data, tracks }: Props) => {
         >
           <Icon />
         </Button>
-        <LikeButton
-          className="absolute top-2 right-2 sm:opacity-0 group-hover:opacity-100 transition-opacity"
-          isActive={isActive}
-          onClick={handleClick}
-        />
+        <AddTrackToPlaylistPopover isActive={isActive}>
+          <LikeButton
+            className="absolute top-2 right-2 sm:opacity-0 group-hover:opacity-100 transition-opacity"
+            isActive={isActive}
+            onClick={handleClick}
+          />
+        </AddTrackToPlaylistPopover>
       </div>
       <div className="flex flex-col gap-0.5">
         <p className="text-[18px] font-medium truncate">{title}</p>
