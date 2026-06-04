@@ -12,6 +12,8 @@ import { useMobile } from '@/hooks/useMobile';
 import { Button } from '../atoms/Button';
 import { useMemo } from 'react';
 import TrackParamsPopover from '../organisms/TrackParamsPopover';
+import { useParams } from 'react-router';
+import { GENRES } from '@/lib/const';
 
 type Props = {
   data: Track;
@@ -20,7 +22,9 @@ type Props = {
 };
 
 const TrackRow = ({ data, index, tracks }: Props) => {
-  const { id, title, author, imagePath, createdAt, duration } = data;
+  const { id, title, author, imagePath, createdAt, genre } = data;
+  const { id: playlistId } = useParams<{ id: string }>();
+
   const setTrackId = usePlayer((state) => state.setTrackId);
   const setPlaylist = usePlayer((state) => state.setPlaylist);
   const { isMobile } = useMobile();
@@ -53,21 +57,18 @@ const TrackRow = ({ data, index, tracks }: Props) => {
       <div className="@container px-4 py-1 gap-4  group grid grid-cols-[1fr_auto] @min-[600px]:grid-cols-[14px_minmax(180px,2fr)_minmax(50px,1fr)_minmax(50px,1fr)]   hover:bg-neutral-800 rounded-[8px]">
         <div className="relative hidden items-center  @min-[600px]/main:flex justify-self-end">
           <div className="relative size-4 flex justify-end">
-            <p className="text-neutral-400 leading-none block text-[18px] font-medium tabular-nums select-none group-hover:opacity-0 group-hover:invisible">
+            <p className="text-neutral-400 leading-none block text-[18px] font-medium tabular-nums select-none group-hover:opacity-0 group-hover:invisible group-focus-within:opacity-0 group-focus-within:invisible">
               {index + 1}
             </p>
             <Button
               variant={'icon'}
               size={'icon'}
-              className="absolute top-0 left-0 text-[16px] text-white invisible opacity-[0] group-hover:opacity-[1] group-hover:visible "
+              className="absolute top-0 left-0 text-[16px] text-white  opacity-[0] group-hover:opacity-[1]  group-focus-within:opacity-[1]  "
               onClick={() => {
                 if (id !== trackId) {
-                  // console.log('SET', id);
-                  setPlaylist(tracks);
+                  setPlaylist(tracks, playlistId);
                   setTrackId(id);
                 } else {
-                  // console.log('PAUSE');
-
                   onPlayPause();
                 }
               }}
@@ -102,16 +103,32 @@ const TrackRow = ({ data, index, tracks }: Props) => {
           opacity-0 
           @min-[600px]/main:block
           group-hover:opacity-100
-          transition-none `}
+          transition-none
+          group-focus-within:opacity-100
+
+          `}
             />
           </AddTrackToPlaylistPopover>
 
-          <span className="hidden @min-[600px]/main:block text-neutral-400">
-            {new Date(duration).toISOString().slice(11, 16) || '0:00'}
+          <span className="hidden @min-[600px]/main:block text-neutral-400 ">
+            {GENRES.find((g) => g.value === genre)?.label}
           </span>
-          <TrackParamsPopover trackId={id}>
-            <IoIosMore />
-          </TrackParamsPopover>
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <TrackParamsPopover trackId={id}>
+              <Button
+                variant={'icon'}
+                size={'icon'}
+                className="hit-area-[10px]"
+              >
+                <IoIosMore />
+              </Button>
+            </TrackParamsPopover>
+          </div>
         </div>
       </div>
     </div>

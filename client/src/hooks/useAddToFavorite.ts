@@ -1,14 +1,19 @@
 import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
 import { useTrackPlaylistStatus } from './useTracks';
 import { useAddToPlaylist, useRemoveFromPlaylist } from './usePlaylists';
+import toast from 'react-hot-toast';
 
 type Props = { trackId: number | null; playlistId?: string | number };
 const useAddToFavorite = ({ trackId, playlistId }: Props) => {
   const numericPlaylistId = playlistId != null ? Number(playlistId) : null;
-  const { data: playlistStatus = [] } = useTrackPlaylistStatus(trackId);
   const { setTrackId } = useAddTrackToPlaylistPopover();
   const { mutateAsync: addToPlaylist } = useAddToPlaylist();
   const { mutateAsync: removeFromPlaylist } = useRemoveFromPlaylist();
+  const { data: playlistStatus = [], error } = useTrackPlaylistStatus(trackId);
+  if (error || !playlistStatus) {
+    return { isActive: null, handleClick: () => {toast.error("Помилка отримання даних")} };
+  }
+  
 
   const isInAnyPlaylist = playlistStatus.some((p) => p.isAdded);
   const isInCurrentPlaylist =

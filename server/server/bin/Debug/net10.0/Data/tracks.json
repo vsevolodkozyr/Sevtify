@@ -1,56 +1,32 @@
 [
   {
-    "Id": 2,
-    "Title": "\u0428\u043E\u0442\u043E \u0442\u0430\u043C \u0411\u0456\u043B\u0456 \u0410\u0439\u043B\u0456\u0448",
-    "Author": "Billie Eilish",
-    "ImagePath": "/uploads/images/887f79ae-2cfd-41f8-8e94-513df5bcd02b.jfif",
-    "TrackPath": "/uploads/tracks/3d0633d5-4769-46b4-b007-72c948ca2cbd.mp3",
-    "Duration": 0,
-    "CreatedAt": "2026-05-23T16:43:26.954007+03:00"
-  },
-  {
     "Id": 3,
-    "Title": "DziDzo \u043A\u0430\u0434\u0456\u043B\u0430\u043A",
-    "Author": "DziDzo",
-    "ImagePath": "/uploads/images/01f549a0-713e-4c0a-bd6b-29f2f073470f.jfif",
-    "TrackPath": "/uploads/tracks/d17746d7-5baf-46b3-8385-8ca7156ce581.mp3",
+    "Title": "kaka",
+    "Author": "asdasd",
+    "ImagePath": "/uploads/images/16aeb517-8bbe-4dd7-b0f3-504b68578f8f.jfif",
+    "TrackPath": "/uploads/tracks/3da7ae8d-d467-4870-aea1-1dfe52bfcd81.mp3",
+    "Genre": "rap",
     "Duration": 0,
-    "CreatedAt": "2026-05-23T16:48:15.9867386+03:00"
+    "CreatedAt": "2026-06-02T17:09:05.9450084+03:00"
   },
   {
-    "Id": 4,
-    "Title": "DziDzo \u044F \u0456 \u0441\u0430\u0440\u0430",
-    "Author": "DziDzo",
-    "ImagePath": "/uploads/images/6e9d8cdd-a5ca-4822-9374-d6af6fd50e35.jfif",
-    "TrackPath": "/uploads/tracks/53e6539d-d5a4-4b16-9b24-2763b76dd312.mp3",
+    "Id": 2,
+    "Title": "Seva 2222222",
+    "Author": "Seva super",
+    "ImagePath": "/uploads/images/3d2e3a0e-5fda-4c8f-b30d-2daf708e5b64.jfif",
+    "TrackPath": "/uploads/tracks/37cbea5a-241b-4d2a-b39e-c68855abde30.mp3",
+    "Genre": "phonk",
     "Duration": 0,
-    "CreatedAt": "2026-05-23T16:48:48.5804444+03:00"
+    "CreatedAt": "2026-06-02T17:10:19.0686978+03:00"
   },
   {
-    "Id": 5,
-    "Title": "\u0420\u043E\u043C\u043A\u0430 - 700 \u0444\u043F\u0441",
-    "Author": "\u0420\u043E\u043C\u043A\u0430",
-    "ImagePath": "/uploads/images/0edc317c-0780-4e5b-85e9-532a2de86d7b.jfif",
-    "TrackPath": "/uploads/tracks/0909f1a3-de45-42e2-8435-a6f8bf747ff7.mp3",
+    "Id": 1,
+    "Title": "Poping 22222",
+    "Author": "asdasda",
+    "ImagePath": "/uploads/images/dc51d514-02a4-473d-88c3-63e55626e5b5.jfif",
+    "TrackPath": "/uploads/tracks/81aa9bf2-a965-4715-8f6c-32b6ea7b0299.mp3",
+    "Genre": "rap",
     "Duration": 0,
-    "CreatedAt": "2026-05-23T16:50:26.0084943+03:00"
-  },
-  {
-    "Id": 6,
-    "Title": "\u0420\u043E\u043C\u043A\u0430 - \u043B\u0430\u0437\u0435\u0440\u0438 \u0437 \u043E\u0447\u0435\u0439",
-    "Author": "\u0420\u043E\u043C\u043A\u0430",
-    "ImagePath": "/uploads/images/184d5189-ff9f-48dc-9c1c-2c45f1516288.jfif",
-    "TrackPath": "/uploads/tracks/003d88c8-21ad-46ff-91a9-8fa1d02f3ab7.mp3",
-    "Duration": 0,
-    "CreatedAt": "2026-05-23T16:50:50.7059874+03:00"
-  },
-  {
-    "Id": 7,
-    "Title": "\u0420\u043E\u043C\u043A\u0430 - \u0430\u0432\u043F",
-    "Author": "\u0420\u043E\u043C\u043A\u0430",
-    "ImagePath": "/uploads/images/322278b6-0e6f-4844-b208-678c8099dfe0.jfif",
-    "TrackPath": "/uploads/tracks/a4433ac6-ea71-44ad-a06d-d936520a06f6.mp3",
-    "Duration": 0,
-    "CreatedAt": "2026-05-23T16:51:11.8138238+03:00"
+    "CreatedAt": "2026-06-02T17:17:17.1507903+03:00"
   }
 ]

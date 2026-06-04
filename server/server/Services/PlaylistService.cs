@@ -17,9 +17,40 @@ namespace server.Services
             _trackService = trackService;
         }
 
-        public List<Playlist> GetAll()
+        public void SeedFavoritePlaylist()
         {
-            return _repo.GetAll();
+            var playlists = _repo.GetAll();
+
+            if (!playlists.Any(p => p.Id == 0))
+            {
+                var favoritePlaylist = new Playlist
+                {
+                    Id = 0, 
+                    Title = "Favorite",
+                    ImagePath = "uploads/images/favorite.jfif", 
+                    IsDeletable = false,
+                    CreatedAt = DateTime.UtcNow,
+                    TracksIds = new List<int>()
+                };
+
+                playlists.Add(favoritePlaylist);
+                _repo.SaveAll(playlists);
+            }
+        }
+
+        public List<Playlist> GetAll(string? search = null)
+        {
+            var playlists = _repo.GetAll();
+
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                playlists = playlists.Where(p =>
+                    p.Title.Contains(search, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+
+            return playlists;
         }
 
         public Playlist Create(CreatePlaylistDto dto, string imagePath)
@@ -36,7 +67,7 @@ namespace server.Services
             return playlist;
         }
 
-        public Playlist? Update(int id, CreatePlaylistDto dto, string imagePath)
+        public Playlist? Update(int id, UpdatePlaylistDto dto, string imagePath)
         {
             var playlists = _repo.GetAll();
             var playlist = playlists.FirstOrDefault(p => p.Id == id);

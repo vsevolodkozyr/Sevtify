@@ -1,18 +1,14 @@
 import { playlistKeys, trackKeys } from '@/services/queryKeys';
-import {
-  useMutation,
-  useQueries,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as playlistService from '../services/playlistService';
-import { mockPromise } from '@/data/mockUtils';
+import toast from 'react-hot-toast';
 
 // GET    /playlists
-export function usePlaylists() {
+export function usePlaylists(search: string) {
   return useQuery({
-    queryKey: playlistKeys.all,
-    queryFn: () => playlistService.getAllPlaylists(),
+    queryKey: [...playlistKeys.all, { search: search }],
+    queryFn: () => playlistService.getAllPlaylists(search),
+    retry: 0,
   });
 }
 
@@ -24,11 +20,17 @@ export const useAddPlaylist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: playlistKeys.all });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося створити трек.';
+      toast.error(errorMessage);
+    },
+    retry: 0,
   });
 };
 
 // GET    /playlists/:id
-export function usePlaylist({ id }: { id: number }) {
+export function usePlaylist({ id }: { id: number | undefined }) {
   return useQuery({
     queryKey: playlistKeys.detail(id),
     queryFn: () => playlistService.getPlaylist({ id }),
@@ -57,6 +59,12 @@ export function useAddToPlaylist() {
         queryKey: trackKeys.playlistStatus(trackId),
       });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося додати трек до плейлисту.';
+      toast.error(errorMessage);
+    },
+    retry: 0,
   });
 }
 
@@ -80,6 +88,13 @@ export function useRemoveFromPlaylist() {
         queryKey: trackKeys.playlistStatus(trackId),
       });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message ||
+        'Не вдалося видалити трек з плейлисту.';
+      toast.error(errorMessage);
+    },
+    retry: 0,
   });
 }
 
@@ -92,6 +107,12 @@ export const useUpdatePlaylist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: playlistKeys.all });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося оновити плейлист.';
+      toast.error(errorMessage);
+    },
+    retry: 0,
   });
 };
 
@@ -110,5 +131,11 @@ export function useDeletePlaylist() {
         queryKey: trackKeys.all,
       });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося видалити плейлист.';
+      toast.error(errorMessage);
+    },
+    retry: 0,
   });
 }

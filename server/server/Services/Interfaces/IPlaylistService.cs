@@ -5,9 +5,12 @@ namespace server.Services.Interfaces
 {
     public interface IPlaylistService
     {
-        List<Playlist> GetAll();
+        void SeedFavoritePlaylist();
+
+
+        List<Playlist> GetAll(string search);
         Playlist Create(CreatePlaylistDto dto,string imagePath);
-        Playlist? Update(int id, CreatePlaylistDto dto,string imagePath);
+        Playlist? Update(int id, UpdatePlaylistDto dto,string imagePath);
         Playlist? Delete(int id);
         Playlist? GetById(int id);
 

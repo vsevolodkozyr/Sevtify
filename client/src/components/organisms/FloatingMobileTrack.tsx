@@ -12,7 +12,18 @@ const FloatingMobileTrack = () => {
   if (!trackId) return null;
 
   return (
-    <div className="px-2 w-full" onClick={onOpen}>
+    <div
+      role="button"
+      className="px-2 w-full focus-visible:ring-2 ring-white"
+      onClick={onOpen}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // Запобігає прокрутці сторінки при натисканні пробілу
+          onOpen();
+        }
+      }}
+    >
       <div className="px-2 py-1 pb-1.5 bg-neutral-700/80 rounded-[8px] relative overflow-hidden">
         <div className="flex items-center">
           <div className="flex-1">

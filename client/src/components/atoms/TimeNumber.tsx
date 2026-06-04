@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 type Props = {
   number: number | undefined;
 };

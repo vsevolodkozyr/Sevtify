@@ -1,28 +1,33 @@
 import usePlayer from '@/store/usePlayer';
 import TimeNumber from '../atoms/TimeNumber';
+import { memo, useState } from 'react';
 
 const TrackTimeSlider = () => {
   const time = usePlayer((state) => state.time);
-  let duration = usePlayer((state) => state.duration);
+  const duration = usePlayer((state) => state.duration);
   const onChangeTime = usePlayer((state) => state.onChangeTime);
   const onMute = usePlayer((state) => state.onMute);
   const onUnmute = usePlayer((state) => state.onUnmute);
   const trackId = usePlayer((state) => state.currentTrackId);
+  const [localTime, setLocalTime] = useState<number | null>(null);
+  const displayTime = trackId ? (localTime !== null ? localTime : time) : 0;
 
-  if (trackId === null) {
-    duration = 0;
-  }
+  const flooredTime = trackId ? Math.floor(displayTime) : 0;
+  const flooredDuration = trackId ? Math.floor(duration) : 1;
+
+  const progressPercent =
+    flooredDuration > 0 ? (flooredTime / flooredDuration) * 100 : 0;
 
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center">
-        <TimeNumber number={time} />
+        <TimeNumber number={displayTime} />
       </div>
       <div className="h-fit relative flex items-center group flex-1">
         <div
           className="h-full absolute top-0 left-0 bg-white group-hover:bg-primary rounded-full pointer-events-none "
           style={{
-            width: `calc(100% * ${Number(time.toFixed(0)) / duration})`,
+            width: `calc(${progressPercent}%)`,
             transition: 'none',
           }}
         ></div>
@@ -37,27 +42,47 @@ const TrackTimeSlider = () => {
                 cursor-pointer
                 `}
           min={0}
-          max={duration}
-          value={time}
+          max={duration || 100}
+          value={flooredTime}
+          step={1}
           onChange={(e) => {
-            onChangeTime(parseFloat(e.target.value));
+            setLocalTime(parseInt(e.target.value, 10));
           }}
-          onMouseDown={() => {
-            //   onPlayPause();
+          onKeyDown={(e: KeyboardEvent) => {
+            if (!['ArrowLeft', 'ArrowRight'].includes(e.code)) {
+              return;
+            }
             onMute();
           }}
-          onMouseUp={() => {
-            //   onPlayPause();
+          onMouseDown={() => {
+            onMute();
+          }}
+          onTouchStart={() => {
+            onMute();
+          }}
+          onPointerUp={(e) => {
+            const finalTime = parseFloat(e.currentTarget.value);
+            onChangeTime(finalTime);
+            setLocalTime(null);
+            onUnmute();
+          }}
+          onKeyUp={(e) => {
+            if (!['ArrowLeft', 'ArrowRight'].includes(e.code)) {
+              return;
+            }
+            const finalTime = parseFloat(e.currentTarget.value);
+            onChangeTime(finalTime);
+            setLocalTime(null);
             onUnmute();
           }}
           disabled={trackId === null}
         />
       </div>
       <div className="flex items-center">
-        <TimeNumber number={duration} />
+        <TimeNumber number={trackId ? duration || 100 : 1} />
       </div>
     </div>
   );
 };
 
-export default TrackTimeSlider;
+export default memo(TrackTimeSlider);

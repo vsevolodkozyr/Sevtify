@@ -3,34 +3,32 @@
     "Id": 0,
     "Title": "Favorite",
     "TracksIds": [
-      2,
-      3,
-      4,
-      5,
-      6,
-      7
+      1,
+      2
     ],
     "Tracks": [],
-    "ImagePath": "/uploads/images/favorite.jfif",
-    "IsDeletable": true,
-    "CreatedAt": "2026-05-15T18:03:17.758201+03:00"
+    "ImagePath": "Images/favorite_fallback.png",
+    "IsDeletable": false,
+    "CreatedAt": "2026-05-26T09:55:15.4822922Z"
   },
   {
     "Id": 1,
-    "Title": "Seva 1",
-    "TracksIds": [],
+    "Title": "Seva 2",
+    "TracksIds": [
+      1
+    ],
     "Tracks": [],
-    "ImagePath": "/uploads/images/f0f23162-096d-458b-9d88-e7b04700168b.jfif",
+    "ImagePath": "/uploads/images/1d4f44f5-4afd-40db-93b0-dc1c0716fec2.jfif",
     "IsDeletable": true,
-    "CreatedAt": "2026-05-16T20:45:39.0570326+03:00"
+    "CreatedAt": "2026-05-28T14:04:57.0551811+03:00"
   },
   {
     "Id": 2,
-    "Title": "\u041F\u043B\u0435\u0439\u043B\u0438\u0441\u0442 SUPER PUPER",
+    "Title": "Lolik 2",
     "TracksIds": [],
     "Tracks": [],
-    "ImagePath": "/uploads/images/860b4b13-2d2c-4105-ae0c-eb0d0252b9da.jfif",
+    "ImagePath": "/uploads/images/c788881a-6d1c-47c4-9860-7d068ca9d86e.jfif",
     "IsDeletable": true,
-    "CreatedAt": "2026-05-17T11:50:43.1493653+03:00"
+    "CreatedAt": "2026-06-02T17:10:04.3458384+03:00"
   }
 ]

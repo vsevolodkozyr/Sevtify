@@ -16,6 +16,7 @@ import { Button } from '../atoms/Button';
 import PlaylistsColumn from './PlaylistsColumn';
 import ChooseCreationPopover from './ChooseCreationPopover';
 import { useSidebar } from '@/store/useSidebar';
+import Search from './Search';
 
 const Sidebar = () => {
   const setIsCollapsed = useSidebar((state) => state.setIsCollapsed);
@@ -147,6 +148,7 @@ const Sidebar = () => {
               </ChooseCreationPopover>
             </div>
           </div>
+          
 
           <div
             className="grow w-full overflow-y-auto overflow-x-hidden

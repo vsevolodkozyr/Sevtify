@@ -17,30 +17,28 @@ namespace server
                 options.AddPolicy("ReactApp", policy =>
                 {
                     policy
-                        .WithOrigins("http://localhost:5173")  // Vite dev server
+                        .WithOrigins("http://localhost:5173")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
             });
 
-            // Add services to the container.
+            // Add services to the container
             builder.Services.Configure<FormOptions>(options =>
             {
-                options.MultipartHeadersLengthLimit = 100 * 1024 * 1024;        // 1 MB заголовки
-                options.MultipartBodyLengthLimit = 100 * 1024 * 1024;     // 100 MB тіло
-                options.ValueLengthLimit = 100* 1024 * 1024;                   // 1 MB текстові поля
+                options.MultipartHeadersLengthLimit = 100 * 1024 * 1024;        // 100 MB
+                options.MultipartBodyLengthLimit = 100 * 1024 * 1024;     // 100 MB
+                options.ValueLengthLimit = 100* 1024 * 1024;                   // 1 MB
             });
 
-            // Kestrel також має свій ліміт — теж збільшуємо
+            
             builder.WebHost.ConfigureKestrel(options =>
             {
                 options.Limits.MaxRequestBodySize = 100 * 1024 * 1024;    // 100 MB
             });
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
-            // Connect Services HERE 
+            // Налаштування сервісів
 
             builder.Services.AddScoped<IPlaylistService, PlaylistService>();
             builder.Services.AddScoped<ITrackService, TrackService>();
@@ -48,8 +46,11 @@ namespace server
             builder.Services.AddScoped<FileService>();
 
             var app = builder.Build();
+            
+            // Перевірка корсів
             app.UseCors("ReactApp");
 
+            // Налаштування викоритсання статичних файлів
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
@@ -57,18 +58,23 @@ namespace server
                 RequestPath = "/uploads"
             });
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
-
-            //app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
+            // Допуст до контролеррів
             app.MapControllers();
+
+            // Data Seeding
+            // Створюємо обов'язковий плейлист "Улюблене", якщо не стоворено
+            using (var scope = app.Services.CreateScope()) // Штучний запит
+            {
+                try
+                {
+                    var playlistService = scope.ServiceProvider.GetRequiredService<IPlaylistService>();
+                    playlistService.SeedFavoritePlaylist();
+                }
+                catch (Exception ex)
+                { 
+                    Console.WriteLine($"Помилка ініціалізації бази даних: {ex.Message}");
+                }
+            }
 
             app.Run();
         }

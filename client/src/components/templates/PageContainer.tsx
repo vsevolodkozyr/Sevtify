@@ -5,7 +5,7 @@ type Props = { className?: string; children: React.ReactNode };
 
 const PageContainer = ({ className = '', children }: Props) => {
   return (
-    <div className={cn('@container p-6 size-full', className)}>{children}</div>
+    <div className={cn('@container p-6 size-full ', className)}>{children}</div>
   );
 };
 

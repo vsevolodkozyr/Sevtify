@@ -1,13 +1,17 @@
 import { useTrackById } from '@/hooks/useTracks';
 import usePlayer from '@/store/usePlayer';
 import Image from '../atoms/Image';
+import { memo } from 'react';
 
 const FooterTrack = () => {
   const trackId = usePlayer((state) => state.currentTrackId);
   const { data: track, error } = useTrackById(trackId);
 
-  if (!track || !trackId || error) {
+  if (!trackId) {
     return null;
+  }
+  if (!track || error) {
+    return <h2 className="text-[1.5rem]">Трек не знайдено</h2>;
   }
 
   const { title, imagePath, author } = track;
@@ -19,7 +23,7 @@ const FooterTrack = () => {
         src={imagePath}
         alt={title}
       />
-      <div className='truncate'>
+      <div className="truncate">
         <p className="font-bold truncate">{title}</p>
         <p className="text-neutral-400 truncate">{author}</p>
       </div>
@@ -27,4 +31,4 @@ const FooterTrack = () => {
   );
 };
 
-export default FooterTrack;
+export default memo(FooterTrack);

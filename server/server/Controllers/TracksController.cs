@@ -22,13 +22,14 @@ namespace server.Controllers
             _playlistService = playlistService;
         }
 
-        // Get all Tracks
+        // GET api/tracks Запит на отриманян всіх треків відповіно до параметрів
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string? search)
+        public IActionResult GetAll([FromQuery] string? search, [FromQuery] string? genre, [FromQuery] DateTime? startDate,
+    [FromQuery] DateTime? endDate)
         {
             try
             {
-                var tracks = _trackService.GetAll(search);
+                var tracks = _trackService.GetAll(search, genre, startDate, endDate);
                 return Ok(tracks);
             }
             catch(Exception ex)
@@ -43,21 +44,40 @@ namespace server.Controllers
         }
 
    
-        // Create Track     
+        // POST api/tracks Створення треку 
         [HttpPost]
         [Consumes("multipart/form-data")] 
         public async Task<IActionResult> Create([FromForm] CreateTrackDto dto)
         {
             try
             {
+                if (dto.ImageFile is not null)
+                {
+                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp",".jfif" };
+                   
+                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
 
+                    if (!allowedImageExtensions.Contains(imageExtension))
+                    {
+                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
+                    }
+                }
 
+               
+                if (dto.TrackFile is not null)
+                {
+                    var allowedAudioExtensions = new[] { ".mp3" };
+                    var audioExtension = Path.GetExtension(dto.TrackFile.FileName).ToLowerInvariant();
 
-                if (!ModelState.IsValid) return BadRequest(ModelState);
+                    if (!allowedAudioExtensions.Contains(audioExtension))
+                    {
+                        return BadRequest(new { message = $"Неприпустимий формат аудіо. Дозволені формати: {string.Join(", ", allowedAudioExtensions)}" });
+                    }
+                }
+
 
                 string imagePath = string.Empty;
                 string audioPath = string.Empty;
-
 
                 if (dto.ImageFile is not null)
                     imagePath = await _fileService.SaveFileAsync(dto.ImageFile, "Images");
@@ -87,14 +107,13 @@ namespace server.Controllers
             }
         }
 
-        // Get Track by Id
+        // GET api/tracks/:id Отримати трек за його id, якщо не знайдено повертати 404
         [HttpGet("{id:int}")]  
         public IActionResult GetById(int id)  
         {
             try
             {
-
-
+                
                 var track = _trackService.GetById(id);
                 return track is null
                     ? NotFound(new { message = $"Трек з id={id} не знайдено" })
@@ -111,15 +130,20 @@ namespace server.Controllers
             }
 
 
-        // Delete Track by Id
-        [HttpDelete("{id}")]
+        // DELETE api/tracks/:id Видалення трек за його id
+        [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
             try
             {
                 var track = _trackService.GetById(id);
                 if (track is null) return NotFound();
-                _trackService.Delete(id);
+                var deletedTrack = _trackService.Delete(id);
+                if (deletedTrack != null)
+                {
+                    _fileService.DeleteFile(deletedTrack.ImagePath);
+                    _fileService.DeleteFile(deletedTrack.TrackPath);
+                }
                 _playlistService.RemoveTrackFromAll(id);
                 return Ok(track);
             }
@@ -132,14 +156,26 @@ namespace server.Controllers
             }
         }
 
-        // Update Track's Title Author or Image by Id
+        // PUT api/tracks/:id Оновити дані про трек за його id
         [HttpPut("{id:int}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update(int id, [FromForm] CreateTrackDto dto)
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateTrackDto dto)
         {
             try
             {
-                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                if (dto.ImageFile is not null)
+                {
+                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp", ".jfif" };
+
+                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
+
+                    if (!allowedImageExtensions.Contains(imageExtension))
+                    {
+                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
+                    }
+                }
+
 
                 string imagePath = string.Empty;
 

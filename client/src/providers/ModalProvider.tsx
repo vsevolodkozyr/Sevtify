@@ -1,3 +1,4 @@
+import F1Modal from '@/components/organisms/F1Modal';
 import NowPlayingModal from '@/components/organisms/NowPlayingModal';
 import PlaylistModal from '@/components/organisms/PlaylistModal';
 import UpdatePlaylistModal from '@/components/organisms/UpdatePlaylistModal';
@@ -12,6 +13,7 @@ const ModalProvider = () => {
       <NowPlayingModal />
       <UpdateTrackModal />
       <UpdatePlaylistModal />
+      <F1Modal />
     </>
   );
 };

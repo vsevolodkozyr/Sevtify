@@ -23,7 +23,7 @@ const PlaylistCard = ({ data, isCollapsed = false }: Props) => {
           <p className="text-[16px] text-white truncate">{title}</p>
           <p className="text-[14px] text-neutral-400 leading-none truncate">
             <span>Playlist</span>
-            {'*'}
+            {':'}
             <span>{tracksIds.length} tracks</span>
           </p>
         </div>

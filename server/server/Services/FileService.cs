@@ -9,10 +9,9 @@
             _uploadsRoot = Path.Combine(env.ContentRootPath, "Uploads");
         }
 
-        /// <summary>
-        /// Зберігає файл у вказану підпапку.
-        /// Повертає відносний URL для зберігання в JSON.
-        /// </summary>
+        
+        // Зберігає файл у вказану підпапку.
+        // Повертає відносний URL для зберігання в JSON.
         public async Task<string> SaveFileAsync(IFormFile file, string subFolder)
         {
             // Uploads/Images  або  Uploads/Tracks
@@ -31,7 +30,7 @@
             return $"/uploads/{subFolder.ToLower()}/{uniqueName}";
         }
 
-        /// <summary>Видаляє файл за відносним URL.</summary>
+        // Видаляє файл за відносним URL.
         public void DeleteFile(string? relativePath)
         {
             if (string.IsNullOrEmpty(relativePath)) return;
@@ -40,8 +39,10 @@
             var relativeFsPath = relativePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
             var fullPath = Path.Combine(
                 _uploadsRoot.Replace("Uploads", ""), relativeFsPath);
-
+            Console.WriteLine(fullPath);
             if (File.Exists(fullPath))
+                Console.WriteLine(fullPath);
+            Console.WriteLine(File.Exists(fullPath));
                 File.Delete(fullPath);
         }
     }

@@ -28,7 +28,6 @@ S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\staticwebassets.development.json
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\swae.build.ex.cache
-S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\server.csproj.Up2Date
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\server.dll
 S:\University\Bachelor\1 year\2 semester\ООП\Sevtify\server\server\obj\Debug\net10.0\refint\server.dll

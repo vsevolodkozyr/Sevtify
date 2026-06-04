@@ -13,12 +13,12 @@ const DEVELOPMENT = import.meta.env.VITE_DEVELOPMENT == 'true';
 // console.log('DEVELOPMENT', DEVELOPMENT);
 
 // GET    /tracks
-export const getAllTracks = async (searchQuery: string) => {
+export const getAllTracks = async (searchQuery) => {
   // if (DEVELOPMENT) {
   //   return mockPromise(() => getTracksMock());
   // }
   const { data } = await api.get<Track[]>('/tracks', {
-    params: { search: searchQuery },
+    params: searchQuery,
   });
   // console.log('ALL TRACKS', data);
   return data;

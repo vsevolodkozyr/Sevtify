@@ -17,15 +17,15 @@ namespace server.Repositories
                 File.WriteAllText(filePath, "[]");
             }
         }
-
-        /// <summary>Повертає всі записи з файлу.</summary>
+        
+        // Отримати всі записи з репозиторію
         public List<T> GetAll()
         {
             var json = File.ReadAllText(_filePath);
             return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>(0);
         }
 
-        /// <summary>Зберігає колекцію у файл.</summary>
+        // Зберегти колекцію в файл
         public void SaveAll(List<T> items)
         {
             var json = JsonSerializer.Serialize(items, _options);

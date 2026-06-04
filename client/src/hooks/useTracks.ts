@@ -7,12 +7,14 @@ import {
 import * as tracksService from '../services/tracksService';
 import { playlistKeys, trackKeys } from '@/services/queryKeys';
 import usePlayer from '@/store/usePlayer';
+import toast from 'react-hot-toast';
 
 // GET    /tracks
 export const useTracks = (searchQuery: string) => {
   return useQuery({
     queryKey: [...trackKeys.all, { search: searchQuery }],
     queryFn: () => tracksService.getAllTracks(searchQuery),
+    retry: 0,
   });
 };
 
@@ -23,6 +25,7 @@ export const useTrackById = (id: number) => {
     queryFn: () => tracksService.getTrackById(id),
     enabled: !!id,
     placeholderData: keepPreviousData,
+    retry: 0,
   });
 };
 
@@ -33,6 +36,9 @@ export const useAddTrack = () => {
     mutationFn: (formData: FormData) => tracksService.addTrack(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: trackKeys.all });
+    },
+    onError() {
+      toast.error('Не вдалося створити трек');
     },
   });
 };
@@ -48,6 +54,11 @@ export const useUpdateTrack = () => {
 
       queryClient.invalidateQueries({ queryKey: trackKeys.detail(id) });
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося оновити трек.';
+      toast.error(errorMessage);
+    },
   });
 };
 
@@ -55,7 +66,7 @@ export const useUpdateTrack = () => {
 export const useDeleteTrack = () => {
   const queryClient = useQueryClient();
   const currentTrackId = usePlayer((state) => state.currentTrackId);
-  const clearTrack = usePlayer((state) => state.setTrackId); // or setTrackId(null)
+  const clearTrack = usePlayer((state) => state.setTrackId);
   return useMutation({
     mutationFn: (id: number) => tracksService.deleteTrack(id),
     onSuccess: (_, id) => {
@@ -68,14 +79,20 @@ export const useDeleteTrack = () => {
         clearTrack(null);
       }
     },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Не вдалося видалити трек.';
+      toast.error(errorMessage);
+    },
   });
 };
 
-// GET    /tracks/:id/playlist-status
+// GET    has/track/id
 export const useTrackPlaylistStatus = (id: number) => {
   return useQuery({
     queryKey: trackKeys.playlistStatus(id),
     queryFn: () => tracksService.getTrackPlaylistStatus(id),
     enabled: !!id,
+    retry: 0,
   });
 };

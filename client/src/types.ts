@@ -21,6 +21,7 @@ export interface Track {
   id: number;
   author: string;
   title: string;
+  genre: string;
   trackPath: string;
   imagePath: string;
   duration: number;

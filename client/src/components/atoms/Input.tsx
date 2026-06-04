@@ -1,11 +1,14 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import type { FieldError } from 'react-hook-form';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: FieldError;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, disabled, ...props }, ref) => {
+  ({ className, type, disabled, error, ...props }, ref) => {
     return (
       <input
         ref={ref}
@@ -24,7 +27,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         text-[18px]
         focus-visible:outline-2
         focus-visible:outline-primary
+        focus-visible:border-transparent
         `,
+          error && 'border-red-500 text-red-500 ',
           className,
         )}
         {...props}
