@@ -11,9 +11,9 @@ const NowPlaying = () => {
     shadowValue: nowPlayingShadowValue,
     applyValue: setNowPlayingValue,
   } = useResize({
-    min: 250,
-    max: 420,
-    initial: 280,
+    min: 0,
+    max: 0,
+    initial: 0,
     direction: 'reverse',
   });
 
@@ -25,7 +25,7 @@ const NowPlaying = () => {
   }, [nowPlayingValue]);
 
   return (
-    <div className="relative [grid-area:now_playing] hidden lg:block">
+    <div className="relative [grid-area:now_playing] hidden lg:hidden">
       <button
         className="absolute flex items-center justify-center right-full top-0 h-full w-[10px] bg-transparent cursor-grabbing focus-within:outline-2 focus-within:outline-white hover:bg-neutral-500/25 active:bg-neutral-500/25"
         onMouseDown={(e) => startNowPlayingResize(e)}

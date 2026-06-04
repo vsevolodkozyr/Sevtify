@@ -1,59 +1,93 @@
 import type { Playlist, PlaylistDetail } from '@/types';
-import { mockPromise } from '@/data/mockUtils';
-import {
-  addTrackToPlaylistMock,
-  createPlaylistMock,
-  getPlaylistById,
-  getPlaylists,
-  removeTrackFromPlaylistMock,
-} from '@/data/mockPlaylists';
 
-// const DEVELOPMENT = true;
+import api from './api';
 
 // GET    /playlists
-export function getAllPlaylists(): Promise<Playlist[]> {
-  return mockPromise<Playlist[]>(() =>
-    getPlaylists()
-      .map((p) => ({ ...p, tracksIds: [...p.tracksIds] }))
-      .sort((a, b) => a.id - b.id),
-  );
+export async function getAllPlaylists(search: string): Promise<Playlist[]> {
+  const { data } = await api.get<Playlist[]>(`/playlists`, {
+    params: { search },
+  });
+  return data;
 }
 
 // GET    /playlists/:id
-export function getPlaylist({
+export async function getPlaylist({
   id,
 }: {
   id: number;
 }): Promise<PlaylistDetail | null> {
-  return mockPromise<PlaylistDetail | null>(() => getPlaylistById(id));
+  const { data } = await api.get<PlaylistDetail | null>(
+    `/playlists/${id}/tracks`,
+  );
+  return data;
 }
 
-export function createPlaylist(formData: FormData) {
-  return createPlaylistMock(formData);
+export async function createPlaylist(formData: FormData) {
+  // return createPlaylistMock(formData);
+  const { data } = await api.post<Playlist>(`/playlists`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  // console.log('Playlist CREATED', data);
+  return data;
 }
 
 // POST   /playlists/:id/tracks
-export function addTrackToPlaylist({
+export async function addTrackToPlaylist({
   playlistId,
   trackId,
 }: {
   playlistId: number;
   trackId: number;
-}): Promise<PlaylistDetail | null> {
-  return mockPromise<PlaylistDetail | null>(() =>
-    addTrackToPlaylistMock(playlistId, trackId),
+}): Promise<Playlist | null> {
+  const { data } = await api.post<Playlist | null>(
+    `/playlists/${playlistId}/tracks`,
+    {
+      id: trackId,
+    },
   );
+
+  return data;
 }
 
 // DELETE /playlists/:id/tracks/:trackId
-export function removeTrackFromPlaylist({
+export async function removeTrackFromPlaylist({
   playlistId,
   trackId,
 }: {
   playlistId: number;
   trackId: number;
-}): Promise<PlaylistDetail | null> {
-  return mockPromise<PlaylistDetail | null>(() =>
-    removeTrackFromPlaylistMock(playlistId, trackId),
+}): Promise<Playlist | null> {
+  const { data } = await api.delete<Playlist | null>(
+    `/playlists/${playlistId}/tracks`,
+    {
+      data: { id: trackId },
+    },
   );
+
+  return data;
+}
+
+export async function updatePlaylist(id: number, formData: FormData) {
+  const { data } = await api.put<Playlist>(`/playlists/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return data;
+}
+
+// DELETE PLAYLIST
+export async function deletePlaylist({
+  playlistId,
+}: {
+  playlistId: number;
+}): Promise<Playlist | null> {
+  const { data } = await api.delete<Playlist | null>(
+    `/playlists/${playlistId}`,
+  );
+
+  return data;
 }

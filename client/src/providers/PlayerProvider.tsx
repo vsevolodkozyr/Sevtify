@@ -1,6 +1,9 @@
 import usePlayer from '@/store/usePlayer';
 import { Howl } from 'howler';
 import { useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
+
+const SERVER_ORIGIN = import.meta.env.VITE_SERVER_CONTENT_URL || '';
 
 const PlayerProvider = () => {
   const {
@@ -8,32 +11,43 @@ const PlayerProvider = () => {
     setPlayer,
     playNext,
     setDuration,
-    setTime,
     setPause,
     volume,
+    currentTrackId,
   } = usePlayer();
+
+  const setTime = usePlayer((state) => state.setTime);
   const interval = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
     if (!currentTrackUrl) return;
     if (interval.current) clearInterval(interval.current);
-    const handleUpdate = () => {
-      setTime(sound?.seek() as number);
-    };
+
     const sound = new Howl({
-      src: [currentTrackUrl],
+      src: [`${SERVER_ORIGIN}${currentTrackUrl}`],
       html5: true,
       volume: volume,
       format: ['mp3'],
       onend: () => {
+        // alert('NEXT');
+        console.log('NEXT');
+
         playNext();
       },
+      onloaderror: () => toast.error('Помилка завантаження аудіо'),
+      onplayerror: () => toast.error('Помилка відтворення аудіо'),
     });
 
     setPlayer(sound);
+
+    const handleUpdate = () => {
+      if (sound.playing()) {
+        setTime(sound.seek() as number);
+      }
+    };
+
     sound.once('load', () => {
       setDuration(sound?.duration() || 0);
-      const intervalTemp = setInterval(handleUpdate, 150);
-      interval.current = intervalTemp;
+      interval.current = setInterval(handleUpdate, 250);
       sound.play();
       setPause(false);
     });
@@ -41,8 +55,9 @@ const PlayerProvider = () => {
 
     return () => {
       sound.unload();
+      if (interval.current) clearInterval(interval.current);
     };
-  }, [currentTrackUrl]);
+  }, [currentTrackId]);
 
   return null;
 };

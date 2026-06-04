@@ -5,13 +5,15 @@ import { useTrackById } from '@/hooks/useTracks';
 import TrackTimeSlider from '../molecules/TrackTimeSlider';
 import FooterTrack from '../molecules/FooterTrack';
 import PlayerControls from '../molecules/PlayerControls';
+import Image from '../atoms/Image';
 
 const NowPlayingModal = () => {
   const { isOpen, onClose } = useNowPlayingModal();
   const trackId = usePlayer((state) => state.currentTrackId);
   const { data: trackInfo } = useTrackById(trackId);
-  if (!trackId || !trackInfo) return null;
-  const { image_path, title, author } = trackInfo;
+  if (!trackId) return null;
+
+  const { imagePath, title, author } = trackInfo || {};
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
@@ -26,23 +28,29 @@ const NowPlayingModal = () => {
       srOnly
       className="fadeIn"
     >
-      <div className="size-full pt-7">
-        <img
-          src={image_path}
-          alt={title}
-          className={`
+      {!trackInfo ? (
+        <h2 className="text-[1.25rem] absolute top-1/2 left-1/2 -translate-1/2">
+          Трек не знайдено
+        </h2>
+      ) : (
+        <div className="size-full pt-7">
+          <Image
+            src={imagePath}
+            alt={title}
+            className={`
             w-full
             aspect-square
             rounded-[8px]
-
+            object-cover
             `}
-        />
-        <div className="pt-10 flex flex-col gap-8">
-          <FooterTrack />
-          <PlayerControls scale={2} />
-          <TrackTimeSlider />
+          />
+          <div className="pt-10 flex flex-col gap-8">
+            <FooterTrack />
+            <PlayerControls scale={2} />
+            <TrackTimeSlider />
+          </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 };

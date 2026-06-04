@@ -5,9 +5,6 @@ interface Props {
 }
 
 const TrackGrid = ({ tracks }: Props) => {
-  if (!tracks.length) {
-    return <p>No tracks</p>;
-  }
   return (
     <div className="@container w-full ">
       <div

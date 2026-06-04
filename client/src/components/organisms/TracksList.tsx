@@ -6,10 +6,21 @@ type Props = {
 };
 
 const TracksList = ({ tracks }: Props) => {
+
+
   return (
-    <div className="">
+    <div className="w-full">
       {tracks.map((track, index) => {
-        return <TrackRow key={track.id} data={track} tracks={tracks} index={index} />;
+        return (
+          track && (
+            <TrackRow
+              key={track.id}
+              data={track}
+              tracks={tracks}
+              index={index}
+            />
+          )
+        );
       })}
     </div>
   );

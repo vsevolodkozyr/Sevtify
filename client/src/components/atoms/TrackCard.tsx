@@ -5,6 +5,10 @@ import useAddToFavorite from '@/hooks/useAddToFavorite';
 import LikeButton from '../molecules/LikeButton';
 import usePlayer from '@/store/usePlayer';
 import { useMemo } from 'react';
+import Image from './Image';
+import AddTrackToPlaylistPopover from '../organisms/AddTrackToPlaylistPopover';
+import TrackParamsPopover from '../organisms/TrackParamsPopover';
+import { IoIosMore } from 'react-icons/io';
 
 type Props = {
   data: Track;
@@ -12,7 +16,7 @@ type Props = {
 };
 
 const TrackCard = ({ data, tracks }: Props) => {
-  const { title, author, image_path, id } = data;
+  const { title, author, imagePath, id } = data;
   const { isActive, handleClick } = useAddToFavorite({ trackId: id });
   const setTrackId = usePlayer((state) => state.setTrackId);
   const setPlaylist = usePlayer((state) => state.setPlaylist);
@@ -32,13 +36,13 @@ const TrackCard = ({ data, tracks }: Props) => {
   return (
     <div className="@container group w-full flex flex-col gap-2 p-3 bg-neutral-800 rounded-[8px] overflow-hidden">
       <div className="w-full aspect-square overflow-hidden relative">
-        <img
+        <Image
           className={`
             size-full
             rounded-[8px]
             object-cover
             `}
-          src={image_path || '/'}
+          src={imagePath || '/'}
           onError={(e) => {
             e.target.attributes.src.value = '/fallback/track.jfif';
           }}
@@ -47,26 +51,51 @@ const TrackCard = ({ data, tracks }: Props) => {
         <Button
           onClick={() => {
             if (id !== trackId) {
-              // console.log('SET', id);
-              setPlaylist(tracks);
+              setPlaylist(tracks, 'all_tracks');
               setTrackId(id);
             } else {
-              // console.log('PAUSE');
-
               onPlayPause();
             }
           }}
           variant={'icon'}
           size={'icon'}
-          className="absolute bottom-1 right-1  text-[7cqw] text-black bg-primary p-3 sm:translate-y-1/2 sm:opacity-0 group-hover:translate-0 group-hover:opacity-100"
+          className={`
+            absolute bottom-1 right-1 text-[7cqw] text-black bg-primary p-3 
+            sm:translate-y-1/2 sm:opacity-0 
+            group-hover:translate-y-0 group-hover:opacity-100 
+            group-focus-within:translate-y-0 group-focus-within:opacity-100 
+            focus-visible:ring-white
+          `}
         >
           <Icon />
         </Button>
-        <LikeButton
-          className="absolute top-2 right-2 sm:opacity-0 group-hover:opacity-100 transition-opacity"
-          isActive={isActive}
-          onClick={handleClick}
-        />
+        <AddTrackToPlaylistPopover isActive={isActive}>
+          <LikeButton
+            className={`
+              absolute top-2 right-2 
+              sm:opacity-0 group-hover:opacity-100 
+              group-focus-within:opacity-100 transition-opacity
+              focus-visible:opacity-100 rounded-full
+              focus-visible:ring-white
+            `}
+            isActive={isActive}
+            onClick={handleClick}
+          />
+        </AddTrackToPlaylistPopover>
+        <TrackParamsPopover trackId={id}>
+          <Button
+            variant={'icon'}
+            size={'icon'}
+            className={`
+              absolute hit-area-[10px] top-2 left-2 
+              sm:opacity-0 group-hover:opacity-100 
+              group-focus-within:opacity-100 transition-opacity
+              focus-visible:opacity-100 rounded-full
+            `}
+          >
+            <IoIosMore />
+          </Button>
+        </TrackParamsPopover>
       </div>
       <div className="flex flex-col gap-0.5">
         <p className="text-[18px] font-medium truncate">{title}</p>

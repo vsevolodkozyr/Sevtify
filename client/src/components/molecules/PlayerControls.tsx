@@ -8,7 +8,7 @@ type Props = {
 };
 
 const PlayerControls = ({ scale = 1 }: Props) => {
-  const duration = usePlayer((state) => state.duration);
+  const trackId = usePlayer((state) => state.currentTrackId);
   const playPrev = usePlayer((state) => state.playPrev);
   const playNext = usePlayer((state) => state.playNext);
   const onPlayPause = usePlayer((state) => state.onPlayPause);
@@ -22,7 +22,7 @@ const PlayerControls = ({ scale = 1 }: Props) => {
         variant={'icon'}
         size={'icon'}
         onClick={() => playPrev()}
-        disabled={duration === 0}
+        disabled={trackId === null}
       >
         <MdSkipPrevious />
       </Button>
@@ -32,9 +32,9 @@ const PlayerControls = ({ scale = 1 }: Props) => {
         variant={'icon'}
         size={'icon'}
         onClick={() => onPlayPause()}
-        disabled={duration === 0}
+        disabled={trackId === null}
       >
-        {isPaused ? <FaPlay /> : <FaPause />}
+        {isPaused || trackId === null ? <FaPlay /> : <FaPause />}
       </Button>
       <Button
         style={{ fontSize: 32 * scale + 'px' }}
@@ -42,7 +42,7 @@ const PlayerControls = ({ scale = 1 }: Props) => {
         variant={'icon'}
         size={'icon'}
         onClick={() => playNext()}
-        disabled={duration === 0}
+        disabled={trackId === null}
       >
         <MdSkipNext />
       </Button>
