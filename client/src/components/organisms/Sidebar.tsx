@@ -103,36 +103,14 @@ const Sidebar = () => {
         </Box>
         <Box className="flex flex-col overflow-hidden h-full">
           <div className="flex items-center p-[16px_16px_8px] ">
-            <div className="flex justify-center items-center grow-1">
-              {/* button */}
-              <TbLayoutSidebarLeftExpand
-                className={cn(
-                  'hidden text-icon text-[32px] ',
-                  isColapsed && 'block',
-                )}
-              />
-            </div>
             <div
               className={cn(
                 '@container flex justify-between items-center w-full',
-                isColapsed && 'hidden',
+                isColapsed && 'truncate opacity-0 invisible',
               )}
             >
               <div className="flex gap-2 items-center">
-                <Button variant={'icon'} size={'icon'}>
-                  <TbLayoutSidebarLeftCollapse
-                    className={cn(
-                      'text-[24px] text-icon -translate-x-full opacity-0 group-hover/sidebar:opacity-100 group-hover/sidebar:translate-x-0 transition-[transform_opacity] duration-300 ease-in-out',
-                    )}
-                  />
-                </Button>
-                <span
-                  className={cn(
-                    'text-[20px] -translate-x-6 group-hover/sidebar:translate-x-0 transition-all duration-300 ease-in-out',
-                  )}
-                >
-                  My library
-                </span>
+                <span className={cn('text-[20px]')}>My library</span>
               </div>
               <ChooseCreationPopover>
                 <Button
@@ -148,7 +126,6 @@ const Sidebar = () => {
               </ChooseCreationPopover>
             </div>
           </div>
-          
 
           <div
             className="grow w-full overflow-y-auto overflow-x-hidden

@@ -94,15 +94,13 @@ const TrackRow = ({ data, index, tracks }: Props) => {
         <div className="hidden @min-[600px]/main:flex  items-center justify-center text-neutral-400">
           {new Date(createdAt).toLocaleDateString()}
         </div>
-        <div className="flex items-center justify-between px-4">
+        <div className="flex items-center justify-between px-4 gap-6 @min-[600px]/gap-0">
           <AddTrackToPlaylistPopover isActive={isActive}>
             <LikeButton
               isActive={isActive}
               onClick={handleClick}
               className={`
-          hidden 
           opacity-0 
-          @min-[600px]/main:block
           group-hover:opacity-100
           transition-none
           group-focus-within:opacity-100
@@ -111,7 +109,7 @@ const TrackRow = ({ data, index, tracks }: Props) => {
             />
           </AddTrackToPlaylistPopover>
 
-          <span className="hidden @min-[600px]/main:block text-neutral-400 truncate">
+          <span className="hidden @min-[600px]/main:block text-neutral-400">
             {GENRES.find((g) => g.value === genre)?.label}
           </span>
           <div
