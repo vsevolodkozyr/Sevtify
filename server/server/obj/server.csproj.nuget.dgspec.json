@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Sevtify\\server\\server\\server.csproj": {}
+    "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Setify2\\Sevtify\\server\\server\\server.csproj": {}
   },
   "projects": {
-    "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Sevtify\\server\\server\\server.csproj": {
+    "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Setify2\\Sevtify\\server\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Sevtify\\server\\server\\server.csproj",
+        "projectUniqueName": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Setify2\\Sevtify\\server\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Sevtify\\server\\server\\server.csproj",
+        "projectPath": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Setify2\\Sevtify\\server\\server\\server.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Sevtify\\server\\server\\obj\\",
+        "outputPath": "S:\\University\\Bachelor\\1 year\\2 semester\\ООП\\Setify2\\Sevtify\\server\\server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "S:\\Programs\\VS\\shared\\NuGetPackages"

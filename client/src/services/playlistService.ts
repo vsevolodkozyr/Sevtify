@@ -23,13 +23,11 @@ export async function getPlaylist({
 }
 
 export async function createPlaylist(formData: FormData) {
-  // return createPlaylistMock(formData);
   const { data } = await api.post<Playlist>(`/playlists`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  // console.log('Playlist CREATED', data);
   return data;
 }
 

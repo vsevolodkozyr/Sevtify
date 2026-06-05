@@ -9,7 +9,6 @@ const PlaylistsColumn = () => {
   const [search, setSearch] = useState('');
   const { data } = usePlaylists(search);
 
-  console.log(data);
   return (
     <>
       <div className="px-2 mb-3 mt-1">
