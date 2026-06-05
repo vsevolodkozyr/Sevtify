@@ -1,4 +1,5 @@
-﻿using server.DTOs;
+﻿using server.Collections;
+using server.DTOs;
 using server.Models;
 using server.Repositories;
 using server.Services.Interfaces;
@@ -10,19 +11,19 @@ namespace server.Services
     {
         private readonly JsonRepository<Playlist> _repo;
         private readonly ITrackService _trackService;
+        private readonly PlaylistCollection _col;
 
         public PlaylistService(IConfiguration config, ITrackService trackService)
         {
             _repo = new JsonRepository<Playlist>(config["DataPaths:Playlists"]!);
             _trackService = trackService;
+            _col = new PlaylistCollection(_repo.GetAll());
         }
 
         public void SeedFavoritePlaylist()
         {
-            var playlists = _repo.GetAll();
-
-            if (!playlists.Any(p => p.Id == 0))
-            {
+            if (_col.GetById(0) is not null) return;
+            
                 var favoritePlaylist = new Playlist
                 {
                     Id = 0, 
@@ -33,71 +34,60 @@ namespace server.Services
                     TracksIds = new List<int>()
                 };
 
-                playlists.Add(favoritePlaylist);
-                _repo.SaveAll(playlists);
-            }
+                _col.CreateWithId(favoritePlaylist);
+                _repo.SaveAll(_col.ToList());
+            
         }
 
         public List<Playlist> GetAll(string? search = null)
         {
-            var playlists = _repo.GetAll();
-
-
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                playlists = playlists.Where(p =>
-                    p.Title.Contains(search, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
-            }
-
+            var playlists = _col.GetAll(search);
             return playlists;
         }
 
         public Playlist Create(CreatePlaylistDto dto, string imagePath)
         {
-            var playlists = _repo.GetAll();
             var playlist = new Playlist
             {
-                Id = playlists.Count > 0 ? playlists.Max(t => t.Id) + 1 : 1,
                 Title = dto.Title,
                 ImagePath = imagePath
             };
-            playlists.Add(playlist);
-            _repo.SaveAll(playlists);
+            playlist = _col.Create(playlist);
+            _repo.SaveAll(_col.ToList());
             return playlist;
         }
 
         public Playlist? Update(int id, UpdatePlaylistDto dto, string imagePath)
         {
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(p => p.Id == id);
+            var playlist = _col.GetById(id);
             if (playlist is null) return null;
-            playlist.ImagePath = imagePath != string.Empty ? imagePath : playlist.ImagePath;
-            playlist.Title = dto.Title;
-            _repo.SaveAll(playlists);
+            var updatedPlaylist = new Playlist
+            {
+                Title = dto.Title,
+                ImagePath = imagePath != string.Empty ? imagePath : playlist.ImagePath,
+            };
+            playlist = _col.Update(id, updatedPlaylist);
+            if (playlist is null) return null;
+            _repo.SaveAll(_col.ToList());
             return playlist;
         }
 
         public Playlist? Delete(int id)
         {
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(t => t.Id == id);
+            var playlist = _col.Delete(id);
             if (playlist is null) return null;
-            playlists.Remove(playlist);
-            _repo.SaveAll(playlists);
+            _repo.SaveAll(_col.ToList());
             return playlist;
         }
 
         public Playlist? GetById(int id) {
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(t => t.Id == id);
+            var playlist = _col.GetById(id);
             return playlist;
         }
 
         public Playlist? GetPlaylistWithTracks(int id)
         {
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(p => p.Id == id);
+            var playlist = _col.GetById(id);
             if (playlist is null) return null;
             var tracks = new List<Track>(0);
             if (playlist.TracksIds.ToArray().Length == 0) return playlist;
@@ -105,7 +95,7 @@ namespace server.Services
             playlist.TracksIds.ToList().ForEach(trackId =>
             {
                 var track = _trackService.GetById(trackId);
-                tracks.Add(track);
+                if (track is not null) tracks.Add(track);
             });
             var newPlaylist = new Playlist
             {
@@ -123,14 +113,9 @@ namespace server.Services
         {
             var track = _trackService.GetById(trackId);
             if (track is null) return null;
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(p => p.Id == id);
-            if (playlist is null) return null;
-            if (!playlist.TracksIds.Contains(trackId))
-            {
-                playlist.TracksIds.Add(trackId);
-                _repo.SaveAll(playlists); 
-            }
+            var playlist = _col.AddTrackToPlaylist(id, trackId);
+            if (playlist is null) return playlist;
+            _repo.SaveAll(_col.ToList()); 
             return playlist;
         }
 
@@ -138,52 +123,22 @@ namespace server.Services
         {
             var track = _trackService.GetById(trackId);
             if (track is null) return null;
-            var playlists = _repo.GetAll();
-            var playlist = playlists.FirstOrDefault(p => p.Id == id);
-            if (playlist is null) return null;
-            if (playlist.TracksIds.Contains(trackId))
-            {
-                playlist.TracksIds.Remove(trackId);
-                _repo.SaveAll(playlists);
-            }
+            var playlist = _col.RemoveTrackFromPlaylist(id, trackId);
+            if (playlist is null) return playlist;
+            _repo.SaveAll(_col.ToList());
             return playlist;
         }
 
         public List<PlaylistHasTrackDto> PlaylistsHasTrack(int trackId)
         {
-            
-            var playlists = _repo.GetAll();
-            List<PlaylistHasTrackDto> playlistsWithFlag = new List<PlaylistHasTrackDto>(0);
-            foreach (var playlist in playlists) {
-                bool isAdded = false;
-                if (playlist.TracksIds.Contains(trackId))
-                {
-                    isAdded = true;
-                }
-                var playlistCopy = new PlaylistHasTrackDto
-                {
-                    Id = playlist.Id,
-                    CreatedAt = playlist.CreatedAt,
-                    ImagePath = playlist.ImagePath,
-                    IsDeletable = playlist.IsDeletable,
-                    Title = playlist.Title,
-                    TracksIds = playlist.TracksIds,
-                    isAdded = isAdded,
-                };
-                playlistsWithFlag.Add(playlistCopy); 
-            }
-            return playlistsWithFlag;
+            var playlists = _col.PlaylistsHasTrack(trackId);
+            return playlists;
         }
 
         public void RemoveTrackFromAll(int trackId)
         {
-            var playlists = _repo.GetAll();
-            var playlistsHasTrack = playlists.Where(p => p.TracksIds.Contains(trackId));
-            foreach (var item in playlistsHasTrack)
-            {
-                item.TracksIds.Remove(trackId);
-            }
-            _repo.SaveAll(playlists);
+            var playlists = _col.RemoveTrackFromAll(trackId);
+            _repo.SaveAll(_col.ToList());
         }
     }
 }
