@@ -5,7 +5,8 @@
     "TracksIds": [
       1,
       2,
-      3
+      3,
+      4
     ],
     "Tracks": [],
     "ImagePath": "Images/favorite_fallback.png",

@@ -24,12 +24,19 @@ namespace server.Controllers
 
         // GET api/tracks Запит на отриманян всіх треків відповіно до параметрів
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string? search, [FromQuery] string? genre, [FromQuery] DateTime? startDate,
-    [FromQuery] DateTime? endDate)
+        public IActionResult GetAll([FromQuery] TracksGetAllDto dto)
         {
             try
             {
-                var tracks = _trackService.GetAll(search, genre, startDate, endDate);
+                if (dto.startDate.HasValue && dto.endDate.HasValue && dto.startDate > dto.endDate)
+                {
+                    return Problem(
+                    detail: "Start date cannot be later than end date.",
+                    title: "Invalid Date Range",
+                    statusCode: 400
+        );
+                }
+                    var tracks = _trackService.GetAll(dto.search, dto.genre, dto.startDate, dto.endDate);
                 return Ok(tracks);
             }
             catch(Exception ex)
