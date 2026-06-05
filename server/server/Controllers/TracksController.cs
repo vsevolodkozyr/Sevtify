@@ -144,7 +144,7 @@ namespace server.Controllers
             try
             {
                 var track = _trackService.GetById(id);
-                if (track is null) return NotFound();
+                if (track is null) return NotFound(new { message = $"Трек з id={id} не знайдено" });
                 var deletedTrack = _trackService.Delete(id);
                 if (deletedTrack != null)
                 {

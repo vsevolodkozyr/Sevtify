@@ -43,12 +43,8 @@ namespace server.Services
 
         public Track? Delete(int id)
         {
-            var tracks = _repo.GetAll();
-            var track = tracks.FirstOrDefault(t => t.Id == id);
-            if (track is null) return track;
-            tracks.Remove(track);
-            
-            _repo.SaveAll(tracks);
+            var track = _col.Delete(id);
+            _repo.SaveAll(_col.ToList());
             return track;
         }
         public Track? Update(int id, UpdateTrackDto dto, string imagePath)

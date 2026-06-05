@@ -2,12 +2,7 @@
   {
     "Id": 0,
     "Title": "Favorite",
-    "TracksIds": [
-      1,
-      2,
-      3,
-      4
-    ],
+    "TracksIds": [],
     "Tracks": [],
     "ImagePath": "Images/favorite_fallback.png",
     "IsDeletable": false,
@@ -16,9 +11,7 @@
   {
     "Id": 1,
     "Title": "Seva 2",
-    "TracksIds": [
-      1
-    ],
+    "TracksIds": [],
     "Tracks": [],
     "ImagePath": "/uploads/images/1d4f44f5-4afd-40db-93b0-dc1c0716fec2.jfif",
     "IsDeletable": true,

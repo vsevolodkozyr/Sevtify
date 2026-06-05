@@ -62,6 +62,15 @@ namespace server.Collections
             return _tracks.FirstOrDefault(t => t.Id == id);
         }
 
+        public Track? Delete(int id)
+        {
+            var track = _tracks.FirstOrDefault(t => t.Id == id);
+            if (track is null) return track;
+            _tracks.Remove(track);
+            return track;
+        }
+
+
         public List<Track> ToList() => _tracks;
     }
 }
