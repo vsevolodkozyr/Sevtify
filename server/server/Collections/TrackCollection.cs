@@ -57,6 +57,11 @@ namespace server.Collections
             return track;
         }
 
+        public Track? GetById(int id)
+        {
+            return _tracks.FirstOrDefault(t => t.Id == id);
+        }
+
         public List<Track> ToList() => _tracks;
     }
 }

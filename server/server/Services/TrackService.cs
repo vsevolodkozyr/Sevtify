@@ -39,8 +39,7 @@ namespace server.Services
             return track;
         }
 
-        public Track? GetById(int id) =>
-        _repo.GetAll().FirstOrDefault(t => t.Id == id);
+        public Track? GetById(int id) => _col.GetById(id);
 
         public Track? Delete(int id)
         {
