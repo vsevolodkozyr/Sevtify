@@ -43,29 +43,26 @@ namespace server.Services
 
         public Track? Delete(int id)
         {
-            var track = _col.Delete(id);
+            var track = _col.GetById(id);
+            if (track == null) return null;
+            track = _col.Delete(id);
             _repo.SaveAll(_col.ToList());
             return track;
         }
         public Track? Update(int id, UpdateTrackDto dto, string imagePath)
         {
-            var tracks = _repo.GetAll();
-            var track = tracks.FirstOrDefault(t => t.Id == id);
-            if(track is null) return null;
-            tracks.Remove(track);
-            
+            var track = _col.GetById(id);
+            if (track == null) return null;
             var updateTrack = new Track
             {
-                Id = track.Id,
                 Title = dto.Title.Trim(),
                 Author = dto.Author.Trim(),
                 Genre = dto.Genre.Trim(),
                 ImagePath = imagePath != string.Empty ? imagePath : track.ImagePath,
-                TrackPath = track.TrackPath,
             };
-            tracks.Add(updateTrack);
-            _repo.SaveAll(tracks);
-            return updateTrack;
+            track = _col.Update(id, updateTrack);
+            _repo.SaveAll(_col.ToList());
+            return track;
 
         }
     }

@@ -16,37 +16,37 @@ namespace server.Collections
 
         public List<Track> GetAll(string? search = null, string? genre = null, DateTime? startDate = null, DateTime? endDate = null)
         {
-            
+            var query = _tracks.AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                _tracks = _tracks.Where(t =>
+                query = query.Where(t =>
                     t.Title.Contains(search, StringComparison.OrdinalIgnoreCase) ||
                     t.Author.Contains(search, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
+                );
             }
 
             if (!string.IsNullOrWhiteSpace(genre))
             {
-                _tracks = _tracks.Where(t =>
+                query = query.Where(t =>
                     t.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
+                );
             }
 
 
             if (startDate.HasValue)
             {
-                _tracks = _tracks.Where(t => t.CreatedAt >= startDate.Value.Date).ToList();
+                query = query.Where(t => t.CreatedAt >= startDate.Value.Date);
             }
 
 
             if (endDate.HasValue)
             {
                 var endOfDay = endDate.Value.Date.AddDays(1).AddTicks(-1);
-                _tracks = _tracks.Where(t => t.CreatedAt <= endOfDay).ToList();
+                query = query.Where(t => t.CreatedAt <= endOfDay);
             }
             
-            return _tracks;
+            return query.ToList();
         }
 
         public Track Create(Track track)
@@ -64,11 +64,22 @@ namespace server.Collections
 
         public Track? Delete(int id)
         {
-            var track = _tracks.FirstOrDefault(t => t.Id == id);
+            var track = this.GetById(id);
             if (track is null) return track;
             _tracks.Remove(track);
             return track;
         }
+        public Track? Update(int id, Track updatedTrack)
+        {
+            var track = this.GetById(id);
+            if (track is null) return track;
+            track.Title = updatedTrack.Title;
+            track.Author = updatedTrack.Author;
+            track.Genre = updatedTrack.Genre;
+            track.ImagePath = updatedTrack.ImagePath;
+            return track;
+        }
+
 
 
         public List<Track> ToList() => _tracks;

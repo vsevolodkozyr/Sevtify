@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOs;
+using server.Models;
 using server.Services;
 using server.Services.Interfaces;
 
@@ -60,26 +61,13 @@ namespace server.Controllers
             {
                 if (dto.ImageFile is not null)
                 {
-                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp",".jfif" };
-                   
-                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
-
-                    if (!allowedImageExtensions.Contains(imageExtension))
-                    {
-                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
-                    }
+                   _fileService.ValidateImage(dto.ImageFile);
                 }
 
                
                 if (dto.TrackFile is not null)
                 {
-                    var allowedAudioExtensions = new[] { ".mp3" };
-                    var audioExtension = Path.GetExtension(dto.TrackFile.FileName).ToLowerInvariant();
-
-                    if (!allowedAudioExtensions.Contains(audioExtension))
-                    {
-                        return BadRequest(new { message = $"Неприпустимий формат аудіо. Дозволені формати: {string.Join(", ", allowedAudioExtensions)}" });
-                    }
+                  _fileService.ValidateAudio(dto.TrackFile);
                 }
 
 
@@ -95,6 +83,10 @@ namespace server.Controllers
 
                 var track = _trackService.Create(dto, imagePath, audioPath);
                 return Created($"/api/tracks/{track.Id}", track);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (IOException ex)
             {
@@ -143,16 +135,12 @@ namespace server.Controllers
         {
             try
             {
-                var track = _trackService.GetById(id);
-                if (track is null) return NotFound(new { message = $"Трек з id={id} не знайдено" });
                 var deletedTrack = _trackService.Delete(id);
-                if (deletedTrack != null)
-                {
-                    _fileService.DeleteFile(deletedTrack.ImagePath);
-                    _fileService.DeleteFile(deletedTrack.TrackPath);
-                }
+                if (deletedTrack is null) return NotFound(new { message = $"Трек з id={id} не знайдено" });
+                _fileService.DeleteFile(deletedTrack.ImagePath);
+                _fileService.DeleteFile(deletedTrack.TrackPath);
                 _playlistService.RemoveTrackFromAll(id);
-                return Ok(track);
+                return Ok(deletedTrack);
             }
             catch (Exception ex) {
                 return Problem(
@@ -170,42 +158,50 @@ namespace server.Controllers
         {
             try
             {
+                var existingTrack = _trackService.GetById(id);
+                if (existingTrack is null) return NotFound(new { message = $"Трек з id={id} не знайдено" });
 
                 if (dto.ImageFile is not null)
                 {
-                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp", ".jfif" };
-
-                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
-
-                    if (!allowedImageExtensions.Contains(imageExtension))
-                    {
-                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
-                    }
+                   _fileService.ValidateImage(dto.ImageFile);
                 }
-
 
                 string imagePath = string.Empty;
 
                 if (dto.ImageFile is not null)
                     imagePath = await _fileService.SaveFileAsync(dto.ImageFile, "Images");
+
+                string oldTrackImagePath = string.Empty;
                 if (imagePath != string.Empty)
                 {
-                    var oldTrack = _trackService.GetById(id);
-                    if (oldTrack is null) return NotFound("Track now found!");
-                    _fileService.DeleteFile(oldTrack.ImagePath);
+                    oldTrackImagePath = existingTrack.ImagePath;
                 }
 
                 var track = _trackService.Update(id, dto, imagePath);
                 if (track is null) return NotFound("Track does not exist");
+                if (oldTrackImagePath != string.Empty) _fileService.DeleteFile(oldTrackImagePath);
                 return Created($"/api/tracks/{track.Id}", track);
             }
-            catch (Exception ex) {
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message }); 
+            }
+            catch (IOException ex)
+            {
                 return Problem(
-                detail: $"Failed to save file: {ex.Message}",
-                title: "File Save Error",
-                statusCode: 500
-            );
+            detail: $"Failed to save file: {ex.Message}",
+            title: "File Save Error",
+            statusCode: 500
+        );
             }
+            catch (Exception ex)
+            {
+                return Problem(
+            detail: ex.Message,
+            title: "Internal Server Error",
+            statusCode: 500
+        );
             }
+        }
     }
 }
