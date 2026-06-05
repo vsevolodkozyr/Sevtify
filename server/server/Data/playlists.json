@@ -4,8 +4,7 @@
     "Title": "Favorite",
     "TracksIds": [
       1,
-      2,
-      3
+      2
     ],
     "Tracks": [],
     "ImagePath": "Images/favorite_fallback.png",
@@ -14,22 +13,14 @@
   },
   {
     "Id": 1,
-    "Title": "Seva 2",
+    "Title": "\u0444\u0456\u0432\u0444\u0456\u0432\u0444\u0456\u0432\u0444 \u041E\u041D\u041E\u0412\u041B\u0415\u041D\u041D\u042F",
     "TracksIds": [
-      1
+      1,
+      2
     ],
     "Tracks": [],
-    "ImagePath": "/uploads/images/1d4f44f5-4afd-40db-93b0-dc1c0716fec2.jfif",
+    "ImagePath": "/uploads/images/9152c018-9f89-49ca-9b88-aef2fb5959f4.jfif",
     "IsDeletable": true,
-    "CreatedAt": "2026-05-28T14:04:57.0551811+03:00"
-  },
-  {
-    "Id": 2,
-    "Title": "Lolik 2 HUI",
-    "TracksIds": [],
-    "Tracks": [],
-    "ImagePath": "/uploads/images/c788881a-6d1c-47c4-9860-7d068ca9d86e.jfif",
-    "IsDeletable": true,
-    "CreatedAt": "2026-06-02T17:10:04.3458384+03:00"
+    "CreatedAt": "2026-06-05T19:27:24.6635458+03:00"
   }
 ]

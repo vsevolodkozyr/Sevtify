@@ -53,14 +53,7 @@ namespace server.Controllers
 
                 if (dto.ImageFile is not null)
                 {
-                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp", ".jfif" };
-
-                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
-
-                    if (!allowedImageExtensions.Contains(imageExtension))
-                    {
-                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
-                    }
+                    _fileService.ValidateImage(dto.ImageFile);
                 }
 
 
@@ -69,17 +62,30 @@ namespace server.Controllers
                     imagePath = await _fileService.SaveFileAsync(dto.ImageFile, "Images");
 
 
-                var track = _playlistService.Create(dto, imagePath);
-                return Created($"/api/playlists/{track.Id}", track);
+                var playlist = _playlistService.Create(dto, imagePath);
+                return Created($"/api/playlists/{playlist.Id}", playlist);
             }
-            catch (Exception ex) {
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (IOException ex)
+            {
                 return Problem(
-                        detail: ex.Message,
-                        title: "Internal Server Error",
-                        statusCode: 500);
-
+            detail: $"Failed to save file: {ex.Message}",
+            title: "File Save Error",
+            statusCode: 500
+        );
             }
-        
+            catch (Exception ex)
+            {
+                return Problem(
+            detail: ex.Message,
+            title: "Internal Server Error",
+            statusCode: 500
+        );
+            } 
+
         }
 
 
@@ -111,44 +117,58 @@ namespace server.Controllers
         {
             try
             {
+                if (id == 0) return Problem(
+                           title: "Плейлсит Favorite заборонено змінювати",
+                           statusCode: 403);
+
                 if (dto.ImageFile is not null)
                 {
-                    var allowedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp", ".jfif" };
-
-                    var imageExtension = Path.GetExtension(dto.ImageFile.FileName).ToLowerInvariant();
-
-                    if (!allowedImageExtensions.Contains(imageExtension))
-                    {
-                        return BadRequest(new { message = $"Неприпустимий формат зображення. Дозволені формати: {string.Join(", ", allowedImageExtensions)}" });
-                    }
+                    _fileService.ValidateImage(dto.ImageFile);
                 }
 
-                if (id == 0) return Problem(
-                            title: "Плейлсит Favorite заборонено змінювати",
-                            statusCode: 403);
+                var oldPlaylist = _playlistService.GetById(id);
+                
+                if (oldPlaylist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
 
-                string imagePath = string.Empty;
+                if (!oldPlaylist.IsDeletable) return Problem(
+                           title: "Плейлист заборонено змінювати",
+                           statusCode: 403);
+
+                var oldImagePath = string.Empty;
+                var imagePath = string.Empty;
 
                 if (dto.ImageFile is not null)
                     imagePath = await _fileService.SaveFileAsync(dto.ImageFile, "Images");
+                
                 if (imagePath != string.Empty)
                 {
-                    var oldTrack = _playlistService.GetById(id);
-                    if (oldTrack is null) return NotFound("Track now found!");
-                    _fileService.DeleteFile(oldTrack.ImagePath);
+                    oldImagePath = oldPlaylist.ImagePath;
                 }
 
                 var playlist = _playlistService.Update(id, dto, imagePath);
-                if (playlist is null) return NotFound("Track does not exist");
-                return Created($"/api/tracks/{playlist.Id}", playlist);
+                if (oldImagePath != string.Empty) _fileService.DeleteFile(oldImagePath);
+                return Created($"/api/playlists/{playlist.Id}", playlist);
             }
-            catch (Exception ex) {
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (IOException ex)
+            {
                 return Problem(
-                            detail: ex.Message,
-                            title: "Internal Server Error",
-                            statusCode: 500);
-
+            detail: $"Failed to save file: {ex.Message}",
+            title: "File Save Error",
+            statusCode: 500
+        );
             }
+            catch (Exception ex)
+            {
+                return Problem(
+            detail: ex.Message,
+            title: "Internal Server Error",
+            statusCode: 500
+        );
+            } 
         }
 
         // DELETE api/playlists/{id:int} Видалити плейлсит за його id
@@ -161,11 +181,11 @@ namespace server.Controllers
                 var playlist = _playlistService.GetById(id);
                 if (playlist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
 
-                if (id == 0 || !playlist.IsDeletable) return Problem(
+                if (id == 0) return Problem(
                             title: "Плейлсит Favorite заборонено змінювати",
                             statusCode: 403);
                 if (!playlist.IsDeletable) return Problem(
-                            title: "Плейлсит заборонено змінювати",
+                            title: "Плейлист заборонено змінювати",
                             statusCode: 403);
                 var deletedPlaylist = _playlistService.Delete(id);
                 if(deletedPlaylist != null)
@@ -203,8 +223,8 @@ namespace server.Controllers
             {
                 
                 int trackId = dto.Id;
-                var checkPlaylist = _playlistService.GetById(id);
-                if (checkPlaylist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
+                var checkTrack = _trackService.GetById(trackId);
+                if (checkTrack is null) return NotFound(new { message = $"Трек з id={trackId} не знайдено" });
                 var playlist = _playlistService.AddTrackToPlaylist(id, trackId);
                 if (playlist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
                 return Ok(playlist);
@@ -229,8 +249,8 @@ namespace server.Controllers
             {
                
                 int trackId = dto.Id;
-                var checkPlaylist = _playlistService.GetById(id);
-                if (checkPlaylist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
+                var checkTrack = _trackService.GetById(trackId);
+                if (checkTrack is null) return NotFound(new { message = $"Трек з id={trackId} не знайдено" });
                 var playlist = _playlistService.RemoveTrackFromPlaylist(id, trackId);
                 if (playlist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
                 return Ok(playlist);

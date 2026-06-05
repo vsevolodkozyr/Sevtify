@@ -2,23 +2,38 @@
 {
     public class FileService
     {
-        private readonly string _uploadsRoot;
+        private static readonly string[] AllowedImages = { ".jpg", ".jpeg", ".png", ".webp", ".jfif" };
+        private static readonly string[] AllowedAudio = { ".mp3" };
 
+        private readonly string _uploadsRoot;
+        
         public FileService(IWebHostEnvironment env)
         {
             _uploadsRoot = Path.Combine(env.ContentRootPath, "Uploads");
         }
 
+
+        public void ValidateImage(IFormFile file)
+        {
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedImages.Contains(ext))
+                throw new ArgumentException($"Неприпустимий формат зображення. Дозволені: {string.Join(", ", AllowedImages)}");
+        }
+
+        public void ValidateAudio(IFormFile file)
+        { 
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedAudio.Contains(ext))
+                throw new ArgumentException($"Неприпустимий формат аудіо. Дозволені: {string.Join(", ", AllowedAudio)}");
+        }
+
+
         
-        // Зберігає файл у вказану підпапку.
-        // Повертає відносний URL для зберігання в JSON.
         public async Task<string> SaveFileAsync(IFormFile file, string subFolder)
         {
-            // Uploads/Images  або  Uploads/Tracks
             var folder = Path.Combine(_uploadsRoot, subFolder);
-            Directory.CreateDirectory(folder); // створює якщо не існує
+            Directory.CreateDirectory(folder);
 
-            // Унікальне ім'я файлу щоб не було конфліктів
             var extension = Path.GetExtension(file.FileName);
             var uniqueName = $"{Guid.NewGuid()}{extension}";
             var fullPath = Path.Combine(folder, uniqueName);
@@ -26,23 +41,18 @@
             using var stream = new FileStream(fullPath, FileMode.Create);
             await file.CopyToAsync(stream);
 
-            // Повертаємо відносний URL: /uploads/images/abc123.jpg
             return $"/uploads/{subFolder.ToLower()}/{uniqueName}";
         }
 
-        // Видаляє файл за відносним URL.
         public void DeleteFile(string? relativePath)
         {
             if (string.IsNullOrEmpty(relativePath)) return;
 
-            // /uploads/images/abc.jpg → Uploads/images/abc.jpg
             var relativeFsPath = relativePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
             var fullPath = Path.Combine(
                 _uploadsRoot.Replace("Uploads", ""), relativeFsPath);
-            Console.WriteLine(fullPath);
+            
             if (File.Exists(fullPath))
-                Console.WriteLine(fullPath);
-            Console.WriteLine(File.Exists(fullPath));
                 File.Delete(fullPath);
         }
     }
