@@ -1,4 +1,5 @@
-﻿using server.Models;
+﻿using server.DTOs;
+using server.Models;
 using System.Diagnostics;
 
 namespace server.Collections
@@ -48,5 +49,14 @@ namespace server.Collections
             return _tracks;
         }
 
+        public Track Create(Track track)
+        {
+            track.Id = _tracks.Count > 0 ? _tracks.Max(t => t.Id) + 1 : 1;
+            track.CreatedAt = DateTime.UtcNow;
+            _tracks.Add(track);
+            return track;
+        }
+
+        public List<Track> ToList() => _tracks;
     }
 }

@@ -38,5 +38,25 @@
     "Genre": "electronic",
     "Duration": 0,
     "CreatedAt": "2026-06-05T14:57:00.0066532+03:00"
+  },
+  {
+    "Id": 5,
+    "Title": "add track changes",
+    "Author": "seva",
+    "ImagePath": "/uploads/images/522b4690-e446-4a87-b940-4a22915e38fa.jfif",
+    "TrackPath": "/uploads/tracks/c888470f-ce65-4d55-a699-5351fd1ed09b.mp3",
+    "Genre": "rap",
+    "Duration": 0,
+    "CreatedAt": "2026-06-05T12:31:40.9818766Z"
+  },
+  {
+    "Id": 6,
+    "Title": "add track",
+    "Author": "asdasd",
+    "ImagePath": "/uploads/images/753f0dd1-6e87-42e2-80e2-7f07f8e9bb5e.jfif",
+    "TrackPath": "/uploads/tracks/8919436c-59b9-4269-9875-41594efca81c.mp3",
+    "Genre": "uk_drill",
+    "Duration": 0,
+    "CreatedAt": "2026-06-05T12:33:52.5696217Z"
   }
 ]

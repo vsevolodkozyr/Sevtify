@@ -26,18 +26,16 @@ namespace server.Services
 
         public Track Create(CreateTrackDto dto,string imagePath,string trackPath)
         {
-            var tracks = _repo.GetAll();
             var track = new Track
             {
-                Id = tracks.Count > 0 ? tracks.Max(t => t.Id) + 1 : 1,
                 Title = dto.Title.Trim(),
                 Author = dto.Author.Trim(),
                 Genre = dto.Genre.Trim(),
                 ImagePath = imagePath,
                 TrackPath = trackPath,
             };
-            tracks.Add(track);
-            _repo.SaveAll(tracks);
+            _col.Create(track);
+            _repo.SaveAll(_col.ToList());
             return track;
         }
 
