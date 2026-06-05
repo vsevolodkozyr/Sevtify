@@ -2,25 +2,10 @@
   {
     "Id": 0,
     "Title": "Favorite",
-    "TracksIds": [
-      1,
-      2
-    ],
+    "TracksIds": [],
     "Tracks": [],
     "ImagePath": "Images/favorite_fallback.png",
     "IsDeletable": false,
     "CreatedAt": "2026-05-26T09:55:15.4822922Z"
-  },
-  {
-    "Id": 1,
-    "Title": "\u0444\u0456\u0432\u0444\u0456\u0432\u0444\u0456\u0432\u0444 \u041E\u041D\u041E\u0412\u041B\u0415\u041D\u041D\u042F",
-    "TracksIds": [
-      1,
-      2
-    ],
-    "Tracks": [],
-    "ImagePath": "/uploads/images/9152c018-9f89-49ca-9b88-aef2fb5959f4.jfif",
-    "IsDeletable": true,
-    "CreatedAt": "2026-06-05T19:27:24.6635458+03:00"
   }
 ]

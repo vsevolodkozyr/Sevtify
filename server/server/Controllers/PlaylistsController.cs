@@ -31,6 +31,7 @@ namespace server.Controllers
         {
             try
             {
+                if(search is null) search = string.Empty;
                 var playlists =  _playlistService.GetAll(search);
                 return Ok(playlists);
             }
@@ -146,6 +147,7 @@ namespace server.Controllers
                 }
 
                 var playlist = _playlistService.Update(id, dto, imagePath);
+                if (playlist is null) return NotFound(new { message = $"Плейлист з id={id} не знайдено" });
                 if (oldImagePath != string.Empty) _fileService.DeleteFile(oldImagePath);
                 return Created($"/api/playlists/{playlist.Id}", playlist);
             }
@@ -267,7 +269,6 @@ namespace server.Controllers
         }
 
         // GET api/playlists/has/track/{id:int} 
-        // Отримання списку плейлистів де присутній трек
         [HttpGet("has/track/{id:int}")]
         public IActionResult PlaylistsHasTrack(int id)
         {

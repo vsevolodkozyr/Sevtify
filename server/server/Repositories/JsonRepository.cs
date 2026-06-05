@@ -10,7 +10,7 @@ namespace server.Repositories
         public JsonRepository(string filePath)
         {
             _filePath = filePath;
-            // Створює файл якщо не існує
+           
             if (!File.Exists(filePath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
@@ -18,14 +18,14 @@ namespace server.Repositories
             }
         }
         
-        // Отримати всі записи з репозиторію
+        
         public List<T> GetAll()
         {
             var json = File.ReadAllText(_filePath);
             return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>(0);
         }
 
-        // Зберегти колекцію в файл
+       
         public void SaveAll(List<T> items)
         {
             var json = JsonSerializer.Serialize(items, _options);

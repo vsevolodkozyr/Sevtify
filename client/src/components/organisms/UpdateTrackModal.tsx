@@ -33,9 +33,7 @@ const UpdateTrackModal = () => {
         `Track ${result.author} - ${result.title} - ${result.duration} updated`,
       );
       onClose();
-    } catch (e) {
-      console.log(e);
-
+    } catch {
       toast.error('Не вдалося оновити трек!');
     }
   };

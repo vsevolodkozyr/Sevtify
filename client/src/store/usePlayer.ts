@@ -111,14 +111,11 @@ const usePlayer = create<PlayerStore>((set, get) => ({
 
   playNext: () => {
     set((state) => {
-      console.log('NEXT');
-
       if (!state.currentPlaylist || state.currentTrackId === null) return state;
       const currentIndex = state.currentPlaylist.findIndex(
         (t) => t.id === state.currentTrackId,
       );
       const length = state.currentPlaylist.length;
-      console.log('HERE');
 
       if (length === 1 && state.player) {
         state.player?.seek(0);
@@ -157,8 +154,6 @@ const usePlayer = create<PlayerStore>((set, get) => ({
 
   addTrack: (track: Track, context?: string | number) => {
     const state = get();
-
-    // МАГІЯ: Якщо ми редагуємо плейлист, який зараз НЕ грає — ігноруємо
     if (context && state.playingContext !== context) return;
 
     if (!state.currentPlaylist) return;
@@ -174,8 +169,6 @@ const usePlayer = create<PlayerStore>((set, get) => ({
 
   removeTrack: (idToRemove: number, context?: string | number) => {
     const state = get();
-
-    // if (context && state.playingContext !== context) return;
 
     if (!state.currentPlaylist) return;
 

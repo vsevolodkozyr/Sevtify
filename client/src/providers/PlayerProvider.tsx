@@ -28,9 +28,6 @@ const PlayerProvider = () => {
       volume: volume,
       format: ['mp3'],
       onend: () => {
-        // alert('NEXT');
-        console.log('NEXT');
-
         playNext();
       },
       onloaderror: () => toast.error('Помилка завантаження аудіо'),
@@ -51,8 +48,6 @@ const PlayerProvider = () => {
       sound.play();
       setPause(false);
     });
-    // sound.fade(1, 0.25, 10000);
-
     return () => {
       sound.unload();
       if (interval.current) clearInterval(interval.current);

@@ -67,7 +67,7 @@ const PlaylistPage = () => {
         <p className="shrink-0">playlist</p>
       </PageTitle>
       <div className="">
-        <h2 className="text-[30px] font-medium mb-3">New arrivals</h2>
+        <h2 className="text-[30px] font-medium mb-3">Your playlist</h2>
         <div className="max-w-[555px] px-1 py-2">
           <Input
             className="px-2 py-1 bg-neutral-600/20"
@@ -76,20 +76,21 @@ const PlaylistPage = () => {
             onChange={(e) => setSearchParams(e.target.value)}
           />
         </div>
-        <div className="@container">
-          <div className="@container px-4 py-1 gap-4  group grid grid-cols-[14px_minmax(auto,2fr)_minmax(auto,1fr)_minmax(auto,1fr)] justify-items-center text-[#b3b3b3] text-[12px] uppercase mb-2">
-            <div className="text-[#b3b3b3]">#</div>
 
-            <div className="justify-self-start">
-              <SortButton
-                label="Назва"
-                columnKey="title"
-                currentSortKey={sortKey}
-                currentDirection={sortDirection}
-                onSort={handleSort}
-              />
-            </div>
+        <div className="@container px-4 py-1 gap-4  group grid grid-cols-[14px_minmax(0px,2fr)_minmax(0px,1fr)_minmax(0px,1fr)] text-[#b3b3b3] text-[12px] uppercase mb-2">
+          <div className="text-[#b3b3b3]">#</div>
 
+          <div>
+            <SortButton
+              label="Назва"
+              columnKey="title"
+              currentSortKey={sortKey}
+              currentDirection={sortDirection}
+              onSort={handleSort}
+            />
+          </div>
+
+          <div className="w-full flex justify-center">
             <SortButton
               label="Дата додавання"
               columnKey="createdAt"
@@ -97,7 +98,9 @@ const PlaylistPage = () => {
               currentDirection={sortDirection}
               onSort={handleSort}
             />
+          </div>
 
+          <div className="w-full flex justify-center">
             <SortButton
               label="Жанр"
               columnKey="genre"
@@ -107,6 +110,7 @@ const PlaylistPage = () => {
             />
           </div>
         </div>
+
         {!tracks.length && <h2 className="">Отакої, тут пусто!</h2>}
         {isFetching ? <div>Fetching</div> : <TracksList tracks={tracks} />}
       </div>

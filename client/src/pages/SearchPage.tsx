@@ -34,7 +34,7 @@ const SearchPage = () => {
         startDate: startDate,
         endDate: endDate,
       });
-    }, 1000);
+    }, 300);
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -42,12 +42,11 @@ const SearchPage = () => {
     };
   }, [inputValue, selectValue, startDate, endDate]);
 
-  console.log(startDate, endDate);
 
   return (
     <PageContainer className="flex">
       <div className="flex flex-col w-full">
-        <PageTitle>Search what you really like</PageTitle>
+        <PageTitle>Search your favorite music</PageTitle>
         <div className="mb-5 flex flex-col gap-2">
           <Search onChange={(e) => setInputValue(e.target.value)} />
           <div className="flex items-end gap-4 flex-wrap">

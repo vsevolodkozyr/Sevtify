@@ -11,10 +11,6 @@ import { useSavePlaylists } from '@/hooks/useSavePlaylists';
 
 type Props = { children: React.ReactNode; isActive: boolean };
 
-// type changePlaylist = {
-//   number: number[];
-// };
-
 const AddTrackToPlaylistPopover = ({ children, isActive }: Props) => {
   const trackId = useAddTrackToPlaylistPopover((state) => state.trackId);
   const [isOpen, setOpen] = useState(false);

@@ -65,7 +65,7 @@ namespace server.Collections
         public Playlist? AddTrackToPlaylist(int id, int trackId)
         {
             var playlist = this.GetById(id);
-            if (playlist is null) return null;
+            if (playlist is null || playlist.TracksIds is null) return null;
             if (!playlist.TracksIds.Contains(trackId))
             {
                 playlist.TracksIds.Add(trackId);
@@ -77,7 +77,7 @@ namespace server.Collections
         public Playlist? RemoveTrackFromPlaylist(int id, int trackId)
         {
             var playlist = this.GetById(id);
-            if (playlist is null) return null;
+            if (playlist is null || playlist.TracksIds is null) return null;
             if (playlist.TracksIds.Contains(trackId))
             {
                 playlist.TracksIds.Remove(trackId);
@@ -91,6 +91,7 @@ namespace server.Collections
             foreach (var playlist in _playlists)
             {
                 bool isAdded = false;
+                if(playlist.TracksIds is null) return playlistsWithFlag;
                 if (playlist.TracksIds.Contains(trackId))
                 {
                     isAdded = true;

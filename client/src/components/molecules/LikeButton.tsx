@@ -1,12 +1,9 @@
-// import useAddToFavorite from '@/hooks/useAddToFavorite';
 import { Button } from '../atoms/Button';
 import { cn } from '@/lib/utils';
 import { FaCheck, FaPlus } from 'react-icons/fa';
 
 type Props = {
   className?: string;
-  // trackId: number;
-  // playlistId?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isActive?: boolean;
@@ -19,11 +16,6 @@ const LikeButton = ({
   handleClick,
   ...props
 }: Props) => {
-  // const { isActive: isLiked, handleClick } = useAddToFavorite({
-  //   trackId,
-  //   playlistId,
-  // });
-
   return (
     <Button
       variant={'icon'}

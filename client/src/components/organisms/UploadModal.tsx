@@ -21,7 +21,6 @@ const UploadModel = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
       const formData = new FormData();
-      console.log(formData);
       formData.append('title', values.title);
       formData.append('author', values.author);
       formData.append('genre', values.genre);

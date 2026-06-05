@@ -31,9 +31,7 @@ const UpdatePlaylistModal = () => {
       const result = await updatePlaylist({ id: playlistId, formData });
       toast.success(`Playlist  ${result.title} updated!`);
       onClose();
-    } catch (e) {
-      console.log(e);
-
+    } catch {
       toast.error('Something went wrong!');
     }
   };

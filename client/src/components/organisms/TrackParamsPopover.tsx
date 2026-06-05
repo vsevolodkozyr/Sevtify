@@ -30,7 +30,6 @@ const TrackParamsPopover = ({ children, trackId }: Props) => {
           onConfirm={async () => {
             const t = await deleteTrack(trackId);
             if (t) {
-              console.log(t);
               removeTrack(trackId);
             }
           }}

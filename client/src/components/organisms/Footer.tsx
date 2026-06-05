@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="[grid-area:footer] sm:relative fixed bottom-0 left-0 w-full ">
       <div className="p-5 gap-5 grid-cols-[1fr_2fr_1fr] items-center content-center hidden sm:grid ">
-        <div>
+        <div className='truncate'>
           <FooterTrack />
         </div>
         <div className="mx-auto w-full">

@@ -17,7 +17,7 @@ const FooterTrack = () => {
   const { title, imagePath, author } = track;
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 items-center truncate">
       <Image
         className={`size-16 aspect-square rounded-[8px] object-cover`}
         src={imagePath}

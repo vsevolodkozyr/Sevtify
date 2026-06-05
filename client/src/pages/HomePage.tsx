@@ -1,4 +1,3 @@
-// import TrackGrid from '@/components/organisms/TrackGrid';
 import { Button } from '@/components/atoms/Button';
 import TrackGrid from '@/components/organisms/TrackGrid';
 import PageContainer from '@/components/templates/PageContainer';
@@ -14,7 +13,8 @@ const HomePage = () => {
         Welcome back, we missed you
       </h1>
       <div>
-        <h2 className="text-[30px] font-medium mb-3">New arrivals</h2>
+        <h2 className="text-[30px] font-medium mb-3">Recently added</h2>
+        {data?.length === 0 && <p>Треків не знайдено</p>}
         {isError && !isFetching && <FetchError onClick={() => refetch()} />}
         {isFetching ? <div>Fetching</div> : <TrackGrid tracks={data ?? []} />}
       </div>

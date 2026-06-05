@@ -19,21 +19,21 @@ const FloatingMobileTrack = () => {
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault(); // Запобігає прокрутці сторінки при натисканні пробілу
+          e.preventDefault(); 
           onOpen();
         }
       }}
     >
       <div className="px-2 py-1 pb-1.5 bg-neutral-700/80 rounded-[8px] relative overflow-hidden">
         <div className="flex items-center">
-          <div className="flex-1">
+          <div className="flex-1 truncate">
             <FooterTrack />
           </div>
           <AddTrackToPlaylistPopover isActive={isActive}>
             <LikeButton
               isActive={isActive}
               onClick={handleClick}
-              className={``}
+              className={`shrink-0`}
             />
           </AddTrackToPlaylistPopover>
         </div>

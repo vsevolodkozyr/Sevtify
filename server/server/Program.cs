@@ -50,7 +50,7 @@ namespace server
             // Перевірка корсів
             app.UseCors("ReactApp");
 
-            // Налаштування викоритсання статичних файлів
+            // Налаштування викориcтання статичних файлів
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
@@ -58,11 +58,11 @@ namespace server
                 RequestPath = "/uploads"
             });
 
-            // Допуст до контролеррів
+            // Допуст до контролерів
             app.MapControllers();
 
             // Data Seeding
-            // Створюємо обов'язковий плейлист "Улюблене", якщо не стоворено
+            // Створюємо обов'язковий плейлист "Улюблене", якщо не створено
             using (var scope = app.Services.CreateScope()) // Штучний запит
             {
                 try

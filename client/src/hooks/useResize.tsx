@@ -87,7 +87,7 @@ function widthCalculate(
   direction: 'default' | 'reverse',
 ): number {
   if (direction === 'default') {
-    return Math.min(Math.max(e.clientX, min), max); //Math.min(Math.max(e.clientX, min), max)
+    return Math.min(Math.max(e.clientX, min), max);
   } else {
     return Math.min(Math.max(window.innerWidth - e.clientX, min), max);
   }

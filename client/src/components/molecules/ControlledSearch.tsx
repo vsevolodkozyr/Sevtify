@@ -23,8 +23,7 @@ const ControlledSearch = ({
     }
     timerRef.current = setTimeout(() => {
       onSearch(inputValue);
-      console.log(inputValue);
-    }, 1000);
+    }, 350);
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);

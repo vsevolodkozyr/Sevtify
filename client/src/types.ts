@@ -1,13 +1,3 @@
-// export interface User {
-//   id: number;
-//   username: string;
-//   lastPlayedSong: {
-//     id: number;
-//     position: number;
-//   };
-//   playlists: number[];
-// }
-
 export interface Playlist {
   id: number;
   title: string;
