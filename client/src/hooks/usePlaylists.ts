@@ -2,6 +2,7 @@ import { playlistKeys, trackKeys } from '@/services/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as playlistService from '../services/playlistService';
 import toast from 'react-hot-toast';
+import { isAxiosError } from 'axios';
 
 // GET    /playlists
 export function usePlaylists(search: string) {
@@ -22,7 +23,7 @@ export const useAddPlaylist = () => {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося створити трек.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося створити трек.';
       toast.error(errorMessage);
     },
     retry: 0,
@@ -30,11 +31,14 @@ export const useAddPlaylist = () => {
 };
 
 // GET    /playlists/:id
-export function usePlaylist({ id }: { id: number | undefined }) {
+export function usePlaylist({ id }: { id: number | null | undefined }) {
   return useQuery({
     queryKey: playlistKeys.detail(id),
-    queryFn: () => playlistService.getPlaylist({ id }),
-    enabled: id !== null,
+    queryFn: () => {
+      if (id == null) throw new Error('No playlist selected');
+      return playlistService.getPlaylist({ id });
+    },
+    enabled: id != null,
     retry: 0,
   });
 }
@@ -61,7 +65,7 @@ export function useAddToPlaylist() {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося додати трек до плейлисту.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося додати трек до плейлисту.';
       toast.error(errorMessage);
     },
     retry: 0,
@@ -90,7 +94,7 @@ export function useRemoveFromPlaylist() {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message ||
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) ||
         'Не вдалося видалити трек з плейлисту.';
       toast.error(errorMessage);
     },
@@ -109,7 +113,7 @@ export const useUpdatePlaylist = () => {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося оновити плейлист.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося оновити плейлист.';
       toast.error(errorMessage);
     },
     retry: 0,
@@ -133,7 +137,7 @@ export function useDeletePlaylist() {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося видалити плейлист.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося видалити плейлист.';
       toast.error(errorMessage);
     },
     retry: 0,

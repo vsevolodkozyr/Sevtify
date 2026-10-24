@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Search from '../organisms/Search';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ const ControlledSearch = ({
   ...props
 }: Props) => {
   const [inputValue, setInputValue] = useState('');
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (timerRef.current) {

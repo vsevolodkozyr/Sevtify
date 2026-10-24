@@ -30,9 +30,9 @@ const useAddToFavorite = ({ trackId, playlistId }: Props) => {
     if (!trackId) return;
     if (numericPlaylistId != null) {
       if (isInCurrentPlaylist) {
-        removeFromPlaylist({ trackId, playlistId });
+        removeFromPlaylist({ trackId, playlistId: numericPlaylistId });
       } else {
-        addToPlaylist({ trackId, playlistId });
+        addToPlaylist({ trackId, playlistId: numericPlaylistId });
       }
     } else {
       if (isInAnyPlaylist) {

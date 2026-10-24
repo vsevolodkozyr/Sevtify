@@ -167,7 +167,7 @@ const usePlayer = create<PlayerStore>((set, get) => ({
     });
   },
 
-  removeTrack: (idToRemove: number, context?: string | number) => {
+  removeTrack: (idToRemove: number) => {
     const state = get();
 
     if (!state.currentPlaylist) return;

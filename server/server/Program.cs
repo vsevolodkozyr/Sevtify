@@ -12,12 +12,19 @@ namespace server
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var port = Environment.GetEnvironmentVariable("PORT");
+            if (!string.IsNullOrWhiteSpace(port))
+                builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
+            var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+                ?? new[] { "http://localhost:5173" };
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("ReactApp", policy =>
                 {
                     policy
-                        .WithOrigins("http://localhost:5173")
+                        .WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -46,9 +53,27 @@ namespace server
             builder.Services.AddScoped<FileService>();
 
             var app = builder.Build();
+
+            Directory.CreateDirectory(Path.Combine(builder.Environment.ContentRootPath, "Uploads"));
             
             // Перевірка корсів
             app.UseCors("ReactApp");
+
+            // Each scoped service loads a JSON snapshot. Serialize API requests so
+            // concurrent visitors cannot overwrite each other's snapshots.
+            var apiGate = new SemaphoreSlim(1, 1);
+            app.Use(async (context, next) =>
+            {
+                if (!context.Request.Path.StartsWithSegments("/api"))
+                {
+                    await next(context);
+                    return;
+                }
+
+                await apiGate.WaitAsync(context.RequestAborted);
+                try { await next(context); }
+                finally { apiGate.Release(); }
+            });
 
             // Налаштування викориcтання статичних файлів
             app.UseStaticFiles(new StaticFileOptions
@@ -60,6 +85,7 @@ namespace server
 
             // Допуст до контролерів
             app.MapControllers();
+            app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
             // Data Seeding
             // Створюємо обов'язковий плейлист "Улюблене", якщо не створено

@@ -1,8 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query';
-import * as playlistService from '../services/playlistService';
-import { trackKeys } from '@/services/queryKeys';
+
+
+
 import { useAddToPlaylist, useRemoveFromPlaylist } from './usePlaylists';
-type PlaylistChange = { id: number; method: boolean };
+export type PlaylistChange = { id: number; method: boolean };
 export const useSavePlaylists = (
   trackId: number | null,
   playlists: PlaylistChange[],

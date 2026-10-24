@@ -13,9 +13,9 @@ namespace server.Services
         private readonly ITrackService _trackService;
         private readonly PlaylistCollection _col;
 
-        public PlaylistService(IConfiguration config, ITrackService trackService)
+        public PlaylistService(IConfiguration config, ITrackService trackService, IWebHostEnvironment env)
         {
-            _repo = new JsonRepository<Playlist>(config["DataPaths:Playlists"]!);
+            _repo = new JsonRepository<Playlist>(Path.Combine(env.ContentRootPath, config["DataPaths:Playlists"]!));
             _trackService = trackService;
             _col = new PlaylistCollection(_repo.GetAll());
         }
@@ -28,7 +28,7 @@ namespace server.Services
                 {
                     Id = 0, 
                     Title = "Favorite",
-                    ImagePath = "uploads/images/favorite.jfif", 
+                    ImagePath = "/uploads/Images/favorite.jfif",
                     IsDeletable = false,
                     CreatedAt = DateTime.UtcNow,
                     TracksIds = new List<int>()

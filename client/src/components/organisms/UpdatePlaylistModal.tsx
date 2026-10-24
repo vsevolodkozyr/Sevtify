@@ -1,6 +1,7 @@
+import type { PlaylistFormValues } from '@/types';
 import Modal from '../atoms/Modal';
 
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 
 import toast from 'react-hot-toast';
 
@@ -21,11 +22,12 @@ const UpdatePlaylistModal = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<PlaylistFormValues> = async (values) => {
+    if (playlistId == null) return;
     try {
       const formData = new FormData();
       formData.append('title', values.title);
-      if (values.image) {
+      if (values.image?.[0]) {
         formData.append('imageFile', values.image[0]);
       }
       const result = await updatePlaylist({ id: playlistId, formData });
@@ -46,7 +48,7 @@ const UpdatePlaylistModal = () => {
       <PlaylistForm
         onSubmit={onSubmit}
         isPending={isPending}
-        playlist={data}
+        playlist={data ?? undefined}
         isUpdate
       />
     </Modal>

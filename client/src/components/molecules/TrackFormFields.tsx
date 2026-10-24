@@ -1,5 +1,6 @@
+import type { TrackFormValues } from '@/types';
 import Input from '../atoms/Input';
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '../atoms/Button';
@@ -10,7 +11,7 @@ import { GENRES } from '@/lib/const';
 
 type Props = {
   isUpdate?: boolean;
-  onSubmit: SubmitHandler<FieldValues>;
+  onSubmit: SubmitHandler<TrackFormValues>;
   isPending: boolean;
   track?: Track;
 };
@@ -21,11 +22,11 @@ const TrackFormFields = ({ isUpdate, onSubmit, isPending, track }: Props) => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<TrackFormValues>({
     values: {
-      title: isUpdate ? track?.title : '',
-      author: isUpdate ? track?.author : '',
-      genre: isUpdate ? track?.genre : '',
+      title: isUpdate ? (track?.title ?? '') : '',
+      author: isUpdate ? (track?.author ?? '') : '',
+      genre: isUpdate ? (track?.genre ?? '') : '',
     },
   });
 
@@ -65,7 +66,7 @@ const TrackFormFields = ({ isUpdate, onSubmit, isPending, track }: Props) => {
           rules={{
             required: true,
           }}
-          defaultValue={isUpdate ? track?.genre : ''}
+          defaultValue={isUpdate ? (track?.genre ?? '') : ''}
           render={({ field }) => {
             return (
               <Select

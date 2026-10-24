@@ -6,7 +6,7 @@ type Props = {
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isActive?: boolean;
+  isActive?: boolean | null;
 };
 
 const LikeButton = ({

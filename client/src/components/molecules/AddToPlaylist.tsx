@@ -8,8 +8,8 @@ import { useState } from 'react';
 
 type Props = {
   playlist: Playlist;
-  trackId: number;
-  handleClick: (id: number) => void;
+  trackId: number | null;
+  handleClick: (change: { id: number; method: boolean }) => void;
 };
 
 const AddToPlaylist = ({ playlist, trackId, handleClick }: Props) => {

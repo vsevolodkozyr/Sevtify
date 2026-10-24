@@ -1,8 +1,9 @@
+import type { TrackFormValues } from '@/types';
 import useUploadModal from '@/store/useUploadModal';
 import Modal from '../atoms/Modal';
 
 import TrackFormFields from '../molecules/TrackFormFields';
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 
 import toast from 'react-hot-toast';
 import { useAddTrack } from '@/hooks/useTracks';
@@ -18,7 +19,8 @@ const UploadModel = () => {
 
   const { isPending, mutateAsync: uploadTrack } = useAddTrack();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<TrackFormValues> = async (values) => {
+    if (!values.image?.[0] || !values.track?.[0]) return;
     try {
       const formData = new FormData();
       formData.append('title', values.title);

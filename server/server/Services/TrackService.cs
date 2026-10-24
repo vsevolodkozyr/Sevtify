@@ -12,9 +12,9 @@ namespace server.Services
         private readonly TrackCollection _col;
 
 
-        public TrackService(IConfiguration config)
+        public TrackService(IConfiguration config, IWebHostEnvironment env)
         {
-            _repo = new JsonRepository<Track>(config["DataPaths:Tracks"]!);
+            _repo = new JsonRepository<Track>(Path.Combine(env.ContentRootPath, config["DataPaths:Tracks"]!));
             _col = new TrackCollection(_repo.GetAll());
         }
 

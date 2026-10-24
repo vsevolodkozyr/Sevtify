@@ -1,6 +1,7 @@
+import type { PlaylistFormValues } from '@/types';
 import Modal from '../atoms/Modal';
 
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 
 import toast from 'react-hot-toast';
 import usePlaylistModal from '@/store/usePlaylistModal';
@@ -18,7 +19,8 @@ const PlaylistModal = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<PlaylistFormValues> = async (values) => {
+    if (!values.image?.[0]) return;
     try {
       const formData = new FormData();
       formData.append('title', values.title);

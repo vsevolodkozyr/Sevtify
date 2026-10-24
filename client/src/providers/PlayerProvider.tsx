@@ -1,9 +1,8 @@
 import usePlayer from '@/store/usePlayer';
+import { serverContentUrl } from '@/lib/serverUrl';
 import { Howl } from 'howler';
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-
-const SERVER_ORIGIN = import.meta.env.VITE_SERVER_CONTENT_URL || '';
 
 const PlayerProvider = () => {
   const {
@@ -23,7 +22,7 @@ const PlayerProvider = () => {
     if (interval.current) clearInterval(interval.current);
 
     const sound = new Howl({
-      src: [`${SERVER_ORIGIN}${currentTrackUrl}`],
+      src: [serverContentUrl(currentTrackUrl)],
       html5: true,
       volume: volume,
       format: ['mp3'],

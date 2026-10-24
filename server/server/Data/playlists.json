@@ -4,7 +4,7 @@
     "Title": "Favorite",
     "TracksIds": [],
     "Tracks": [],
-    "ImagePath": "Images/favorite_fallback.png",
+    "ImagePath": "/uploads/Images/favorite.jfif",
     "IsDeletable": false,
     "CreatedAt": "2026-05-26T09:55:15.4822922Z"
   }

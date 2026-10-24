@@ -1,12 +1,13 @@
+import type { PlaylistFormValues } from '@/types';
 import type { PlaylistDetail } from '@/types';
 
-import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Button } from '../atoms/Button';
 import Input from '../atoms/Input';
 
 type Props = {
   isUpdate?: boolean;
-  onSubmit: SubmitHandler<FieldValues>;
+  onSubmit: SubmitHandler<PlaylistFormValues>;
   isPending: boolean;
   playlist?: PlaylistDetail;
 };
@@ -22,9 +23,9 @@ const PlaylistForm = ({
     handleSubmit,
 
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<PlaylistFormValues>({
     values: {
-      title: isUpdate ? data?.title : '',
+      title: isUpdate ? (data?.title ?? '') : '',
     },
   });
 

@@ -1,10 +1,3 @@
-import React from 'react';
-import Input from '../atoms/Input';
-
-type Props = {};
-
-const PlaylistSearch = (props: Props) => {
-  return ;
-};
+const PlaylistSearch = () => null;
 
 export default PlaylistSearch;

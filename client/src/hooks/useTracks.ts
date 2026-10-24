@@ -7,22 +7,28 @@ import {
 import * as tracksService from '../services/tracksService';
 import { playlistKeys, trackKeys } from '@/services/queryKeys';
 import usePlayer from '@/store/usePlayer';
+import type { TrackFilters } from '@/types';
 import toast from 'react-hot-toast';
+import { isAxiosError } from 'axios';
 
 // GET    /tracks
-export const useTracks = (searchQuery: string) => {
+export const useTracks = (searchQuery: string | TrackFilters) => {
+  const filters = typeof searchQuery === 'string' ? { search: searchQuery } : searchQuery;
   return useQuery({
-    queryKey: [...trackKeys.all, { search: searchQuery }],
-    queryFn: () => tracksService.getAllTracks(searchQuery),
+    queryKey: [...trackKeys.all, filters],
+    queryFn: () => tracksService.getAllTracks(filters),
     retry: 0,
   });
 };
 
 // GET    /tracks/:id
-export const useTrackById = (id: number) => {
+export const useTrackById = (id: number | null) => {
   return useQuery({
     queryKey: trackKeys.detail(id),
-    queryFn: () => tracksService.getTrackById(id),
+    queryFn: () => {
+      if (id == null) throw new Error('No track selected');
+      return tracksService.getTrackById(id);
+    },
     enabled: !!id,
     placeholderData: keepPreviousData,
     retry: 0,
@@ -56,7 +62,7 @@ export const useUpdateTrack = () => {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося оновити трек.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося оновити трек.';
       toast.error(errorMessage);
     },
   });
@@ -81,17 +87,20 @@ export const useDeleteTrack = () => {
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.message || 'Не вдалося видалити трек.';
+        (isAxiosError<{ message?: string }>(error) ? error.response?.data?.message : undefined) || 'Не вдалося видалити трек.';
       toast.error(errorMessage);
     },
   });
 };
 
 // GET    has/track/id
-export const useTrackPlaylistStatus = (id: number) => {
+export const useTrackPlaylistStatus = (id: number | null) => {
   return useQuery({
     queryKey: trackKeys.playlistStatus(id),
-    queryFn: () => tracksService.getTrackPlaylistStatus(id),
+    queryFn: () => {
+      if (id == null) throw new Error('No track selected');
+      return tracksService.getTrackPlaylistStatus(id);
+    },
     enabled: !!id,
     retry: 0,
   });

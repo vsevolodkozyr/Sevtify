@@ -43,9 +43,6 @@ const TrackCard = ({ data, tracks }: Props) => {
             object-cover
             `}
           src={imagePath || '/'}
-          onError={(e) => {
-            e.target.attributes.src.value = '/fallback/track.jfif';
-          }}
           alt={`Track ${title} - ${author}`}
         />
         <Button

@@ -1,4 +1,4 @@
-import Input from '@/components/atoms/Input';
+
 import PageTitle from '@/components/atoms/PageTitle';
 import DateRangeSelector from '@/components/molecules/DateRangeSelector';
 import Select from '@/components/molecules/SelectGenre';
@@ -21,7 +21,7 @@ const SearchPage = () => {
     endDate: '',
   });
   const { data, isFetching } = useTracks(search);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (timerRef.current) {
@@ -77,7 +77,7 @@ const SearchPage = () => {
           {isFetching ? (
             <div>Fetching</div>
           ) : (
-            data?.length > 0 && <TracksList tracks={data ?? []} />
+            (data?.length ?? 0) > 0 && <TracksList tracks={data ?? []} />
           )}
         </div>
       </div>

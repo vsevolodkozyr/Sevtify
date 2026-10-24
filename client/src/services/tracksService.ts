@@ -1,8 +1,8 @@
-import type { Track } from '@/types';
+import type { Track, TrackFilters, PlaylistTrackStatus } from '@/types';
 import api from './api';
 
 // GET    /tracks
-export const getAllTracks = async (searchQuery) => {
+export const getAllTracks = async (searchQuery: TrackFilters) => {
   const { data } = await api.get<Track[]>('/tracks', {
     params: searchQuery,
   });
@@ -43,6 +43,6 @@ export const updateTrack = async (id: number, formData: FormData) => {
 
 // GET    /tracks/:id/playlist-status
 export const getTrackPlaylistStatus = async (id: number) => {
-  const { data } = await api.get<Track>(`playlists/has/track/${id}`);
+  const { data } = await api.get<PlaylistTrackStatus[]>(`/playlists/has/track/${id}`);
   return data;
 };

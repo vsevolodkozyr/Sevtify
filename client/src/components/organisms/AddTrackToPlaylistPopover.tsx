@@ -7,21 +7,21 @@ import AddToPlaylist from '../molecules/AddToPlaylist';
 import { Popover } from '../atoms/Popover';
 import { Button } from '../atoms/Button';
 import useAddTrackToPlaylistPopover from '@/store/useAddTrackToPlaylistPopover';
-import { useSavePlaylists } from '@/hooks/useSavePlaylists';
+import { useSavePlaylists, type PlaylistChange } from '@/hooks/useSavePlaylists';
 
-type Props = { children: React.ReactNode; isActive: boolean };
+type Props = { children: React.ReactNode; isActive: boolean | null };
 
 const AddTrackToPlaylistPopover = ({ children, isActive }: Props) => {
   const trackId = useAddTrackToPlaylistPopover((state) => state.trackId);
   const [isOpen, setOpen] = useState(false);
   const { data, error } = usePlaylists('');
-  const [playlistsToChange, setPlaylistsToChange] = useState([]);
+  const [playlistsToChange, setPlaylistsToChange] = useState<PlaylistChange[]>([]);
 
   const { handleSave } = useSavePlaylists(trackId, playlistsToChange);
 
   const handleClick = ({ id, method }: { id: number; method: boolean }) => {
     setPlaylistsToChange((old) => {
-      const copy = JSON.parse(JSON.stringify(old));
+      const copy = [...old];
       if (copy.find(({ id: i }) => i === id)) {
         return copy.filter(({ id: i }) => i !== id);
       } else {

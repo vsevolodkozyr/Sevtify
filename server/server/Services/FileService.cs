@@ -41,16 +41,21 @@
             using var stream = new FileStream(fullPath, FileMode.Create);
             await file.CopyToAsync(stream);
 
-            return $"/uploads/{subFolder.ToLower()}/{uniqueName}";
+            return $"/uploads/{subFolder}/{uniqueName}";
         }
 
         public void DeleteFile(string? relativePath)
         {
             if (string.IsNullOrEmpty(relativePath)) return;
 
-            var relativeFsPath = relativePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
-            var fullPath = Path.Combine(
-                _uploadsRoot.Replace("Uploads", ""), relativeFsPath);
+            const string prefix = "uploads/";
+            var uploadPath = relativePath.TrimStart('/');
+            if (!uploadPath.StartsWith(prefix, StringComparison.Ordinal)) return;
+
+            var relativeFsPath = uploadPath[prefix.Length..].Replace('/', Path.DirectorySeparatorChar);
+            var fullPath = Path.GetFullPath(Path.Combine(_uploadsRoot, relativeFsPath));
+            var root = Path.GetFullPath(_uploadsRoot) + Path.DirectorySeparatorChar;
+            if (!fullPath.StartsWith(root, StringComparison.Ordinal)) return;
             
             if (File.Exists(fullPath))
                 File.Delete(fullPath);

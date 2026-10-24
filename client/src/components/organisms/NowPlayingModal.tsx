@@ -13,7 +13,7 @@ const NowPlayingModal = () => {
   const { data: trackInfo } = useTrackById(trackId);
   if (!trackId) return null;
 
-  const { imagePath, title, author } = trackInfo || {};
+
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
@@ -35,8 +35,8 @@ const NowPlayingModal = () => {
       ) : (
         <div className="size-full pt-7">
           <Image
-            src={imagePath}
-            alt={title}
+            src={trackInfo.imagePath}
+            alt={trackInfo.title}
             className={`
             w-full
             aspect-square

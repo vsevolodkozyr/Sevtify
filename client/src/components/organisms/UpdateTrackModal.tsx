@@ -1,6 +1,7 @@
+import type { TrackFormValues } from '@/types';
 import Modal from '../atoms/Modal';
 
-import type { FieldValues, SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 
 import toast from 'react-hot-toast';
 import { useTrackById, useUpdateTrack } from '@/hooks/useTracks';
@@ -19,13 +20,14 @@ const UpdateTrackModal = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<TrackFormValues> = async (values) => {
+    if (trackId == null) return;
     try {
       const formData = new FormData();
       formData.append('title', values.title);
       formData.append('author', values.author);
       formData.append('genre', values.genre);
-      if (values.image) {
+      if (values.image?.[0]) {
         formData.append('imageFile', values.image[0]);
       }
       const result = await updateTrack({ id: trackId, formData });

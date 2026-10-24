@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { serverContentUrl } from '@/lib/serverUrl';
 
 type Props = {
   alt: string;
@@ -6,16 +7,16 @@ type Props = {
   src: string;
 };
 
-const SERVER_ORIGIN = import.meta.env.VITE_SERVER_CONTENT_URL || '';
-
 const Image = ({ src = '', alt = '', className = '', ...props }: Props) => {
   return (
     <img
-      src={`${SERVER_ORIGIN}${src}`}
+      src={src ? serverContentUrl(src) : '/fallback/track.jfif'}
       alt={alt}
       className={cn('', className)}
       onError={(e) => {
-        (e.target as HTMLImageElement).src = '/fallback/track.jfif';
+        if (!e.currentTarget.src.endsWith('/fallback/track.jfif')) {
+          e.currentTarget.src = '/fallback/track.jfif';
+        }
       }}
       {...props}
     />

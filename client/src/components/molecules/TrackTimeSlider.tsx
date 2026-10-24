@@ -48,7 +48,7 @@ const TrackTimeSlider = () => {
           onChange={(e) => {
             setLocalTime(parseInt(e.target.value, 10));
           }}
-          onKeyDown={(e: KeyboardEvent) => {
+          onKeyDown={(e) => {
             if (!['ArrowLeft', 'ArrowRight'].includes(e.code)) {
               return;
             }
